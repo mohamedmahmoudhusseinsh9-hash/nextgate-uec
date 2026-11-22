@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXT GATE // UEC University CS Career & Assessment Arena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Orbitron', 'Cairo', 'sans-serif'],
+                        sans: ['Inter', 'Cairo', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        obsidian: '#07090e',
+                        panel: '#0d111a',
+                        panelLight: '#131926',
+                        neonCyan: '#00f5d4',
+                        neonPurple: '#9b5de5',
+                        neonMagenta: '#f15bb5',
+                        neonGreen: '#00ff88',
+                        neonRed: '#ff2a5f',
+                        neonGold: '#fee440'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #07090e;
+            color: #e2e8f0;
+            background-image:
+                linear-gradient(rgba(0, 245, 212, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 212, 0.03) 1px, transparent 1px);
+            background-size: 36px 36px;
+        }
+        html[dir="rtl"] body {
+            font-family: 'Cairo', 'Inter', sans-serif;
+        }
+        html[dir="rtl"] .font-display {
+            font-family: 'Cairo', 'Orbitron', sans-serif;
+            letter-spacing: 0 !important;
+        }
+        .cyber-card {
+            background: linear-gradient(145deg, rgba(13, 17, 26, 0.95), rgba(19, 25, 38, 0.9));
+            border: 1px solid rgba(0, 245, 212, 0.16);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .cyber-card:hover {
+            border-color: rgba(0, 245, 212, 0.55);
+            box-shadow: 0 0 25px rgba(0, 245, 212, 0.14);
+            transform: translateY(-3px);
+        }
+        .neon-glow-cyan {
+            box-shadow: 0 0 18px rgba(0, 245, 212, 0.35);
+        }
+        .neon-glow-purple {
+            box-shadow: 0 0 18px rgba(155, 93, 229, 0.35);
+        }
+        .neon-text-cyan {
+            text-shadow: 0 0 12px rgba(0, 245, 212, 0.5);
+        }
+        .hud-clip {
+            clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+        }
+        ::-webkit-scrollbar { width: 7px; height: 7px; }
+        ::-webkit-scrollbar-track { background: #07090e; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00f5d4; }
+        @keyframes pulseBorder {
+            0%, 100% { border-color: rgba(0, 245, 212, 0.35); }
+            50% { border-color: rgba(155, 93, 229, 0.75); }
+        }
+        .animate-hud-border { animation: pulseBorder 3.5s infinite ease-in-out; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-neonCyan selection:text-obsidian">
+
+    <!-- ==================== LOGIN PORTAL OVERLAY ==================== -->
+    <div id="loginOverlay" class="fixed inset-0 z-50 bg-obsidian/95 backdrop-blur-xl flex items-center justify-center p-4 overflow-y-auto">
+        <div class="w-full max-w-lg cyber-card animate-hud-border rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+            <div class="absolute -top-24 -right-24 w-56 h-56 bg-neonPurple/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-56 h-56 bg-neonCyan/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative">
+                <!-- UEC University Badge -->
+                <div class="flex items-center justify-between gap-2 mb-6">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neonCyan/10 border border-neonCyan/30 text-neonCyan font-mono text-xs font-bold tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-neonCyan animate-ping"></span>
+                        UEC UNIVERSITY // CS PORTAL
+                    </span>
+                    <button type="button" onclick="toggleLanguage()" class="px-3 py-1 rounded-lg bg-panelLight border border-slate-700 hover:border-neonCyan text-xs font-bold text-slate-200 transition cursor-pointer">
+                        <span id="loginLangLabel">عربي / EN</span>
+                    </button>
+                </div>
+
+                <h1 class="font-display text-3xl sm:text-4xl font-black tracking-wider text-white mb-2">
+                    NEXT <span class="text-neonCyan neon-text-cyan">GATE</span>
+                </h1>
+                <p id="loginSubtitle" class="text-sm text-slate-400 mb-6">
+                    University of Engineering & Computing (UEC) — Computer Science Career Launchpad & Technical Skill Arena.
+                </p>
+
+                <form id="loginForm" class="space-y-4">
+                    <div>
+                        <label id="lblStudentName" for="inputStudentName" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                            Student Full Name
+                        </label>
+                        <input id="inputStudentName" type="text" required placeholder="e.g., Omar Khaled Hassan"
+                            class="w-full px-4 py-3 rounded-xl bg-obsidian border border-slate-700 focus:border-neonCyan focus:outline-none text-white text-sm placeholder-slate-500 transition">
+                    </div>
+
+                    <div>
+                        <label id="lblStudentId" for="inputStudentId" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                            UEC University ID
+                        </label>
+                        <input id="inputStudentId" type="text" required placeholder="e.g., UEC-2026-4819"
+                            class="w-full px-4 py-3 rounded-xl bg-obsidian border border-slate-700 focus:border-neonCyan focus:outline-none text-white font-mono text-sm placeholder-slate-500 transition">
+                    </div>
+
+                    <div>
+                        <label id="lblAcademicYear" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                            Academic Year (Computer Science)
+                        </label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="yearSelectorGroup">
+                            <button type="button" data-year="1" class="year-choice active py-2.5 px-3 rounded-xl border border-neonCyan bg-neonCyan/15 text-neonCyan font-bold text-xs text-center transition cursor-pointer">
+                                Year 1<br><span class="text-[10px] opacity-80">Freshman</span>
+                            </button>
+                            <button type="button" data-year="2" class="year-choice py-2.5 px-3 rounded-xl border border-slate-700 bg-obsidian text-slate-400 hover:border-slate-500 font-bold text-xs text-center transition cursor-pointer">
+                                Year 2<br><span class="text-[10px] opacity-80">Sophomore</span>
+                            </button>
+                            <button type="button" data-year="3" class="year-choice py-2.5 px-3 rounded-xl border border-slate-700 bg-obsidian text-slate-400 hover:border-slate-500 font-bold text-xs text-center transition cursor-pointer">
+                                Year 3<br><span class="text-[10px] opacity-80">Junior</span>
+                            </button>
+                            <button type="button" data-year="4" class="year-choice py-2.5 px-3 rounded-xl border border-slate-700 bg-obsidian text-slate-400 hover:border-slate-500 font-bold text-xs text-center transition cursor-pointer">
+                                Year 4<br><span class="text-[10px] opacity-80">Senior</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="loginError" class="hidden text-xs font-semibold text-neonRed bg-neonRed/10 border border-neonRed/30 rounded-lg px-3 py-2">
+                        Please enter your full name and UEC University ID.
+                    </div>
+
+                    <button type="submit" id="btnEnterPortal"
+                        class="w-full mt-2 py-3.5 px-6 rounded-xl bg-gradient-to-r from-neonCyan to-neonPurple text-obsidian font-display font-extrabold text-sm uppercase tracking-wider hover:opacity-95 neon-glow-cyan transition cursor-pointer">
+                        INITIALIZE PLAYER PROFILE & ENTER NEXT GATE →
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN APPLICATION SHELL ==================== -->
+    <div id="appShell" class="hidden flex-1 flex flex-col">
+
+        <!-- TOP GAMING HUD HEADER -->
+        <header class="sticky top-0 z-40 bg-obsidian/90 backdrop-blur-md border-b border-slate-800/90">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+                <!-- Brand -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neonCyan to-neonPurple p-[1.5px]">
+                        <div class="w-full h-full bg-obsidian rounded-[10px] flex items-center justify-center font-display font-black text-neonCyan text-sm">
+                            NG
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-display font-black text-lg sm:text-xl tracking-wider text-white">NEXT <span class="text-neonCyan">GATE</span></span>
+                            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-neonPurple/20 text-neonPurple border border-neonPurple/40">UEC UNIV</span>
+                        </div>
+                        <p id="headerTagline" class="text-[11px] text-slate-400 hidden sm:block">CS Career Readiness & Technical Assessment Arena</p>
+                    </div>
+                </div>
+
+                <!-- Student HUD Status & Controls -->
+                <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <!-- Student Info Pill -->
+                    <div class="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-panel border border-slate-800 text-xs">
+                        <div class="w-2 h-2 rounded-full bg-neonGreen"></div>
+                        <span id="hudStudentName" class="font-bold text-white truncate max-w-[110px] sm:max-w-[160px]">Student</span>
+                        <span id="hudStudentId" class="font-mono text-neonCyan hidden md:inline">UEC-0000</span>
+                        <span id="hudStudentYear" class="px-2 py-0.5 rounded bg-neonCyan/15 text-neonCyan font-bold">Year 1</span>
+                    </div>
+
+                    <!-- XP / Total Score Badge -->
+                    <div class="px-3 py-1.5 rounded-xl bg-panel border border-neonPurple/40 text-xs flex items-center gap-1.5">
+                        <span class="text-neonGold font-bold">⚡ XP:</span>
+                        <span id="hudTotalXp" class="font-mono font-bold text-white">0</span>
+                    </div>
+
+                    <!-- Bilingual UI Toggle Button -->
+                    <button id="langToggleBtn" onclick="toggleLanguage()"
+                        class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-neonPurple/20 to-neonCyan/20 border border-neonCyan/50 hover:border-neonCyan text-xs font-bold text-white transition cursor-pointer">
+                        🌐 عربي / EN
+                    </button>
+
+                    <!-- Switch Student / Logout -->
+                    <button id="logoutBtn" onclick="logoutStudent()" title="Switch Student"
+                        class="px-3 py-1.5 rounded-xl bg-panel hover:bg-neonRed/15 border border-slate-700 hover:border-neonRed/50 text-xs font-semibold text-slate-300 hover:text-neonRed transition cursor-pointer">
+                        <span id="lblLogout">Switch</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800/60">
+                <nav class="flex items-center gap-1 sm:gap-2 overflow-x-auto py-2 no-scrollbar" aria-label="Main Sections">
+                    <button onclick="switchTab('roadmap')" id="tab-roadmap"
+                        class="nav-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap bg-neonCyan text-obsidian shadow-md transition cursor-pointer">
+                        🎓 <span data-i18n="tabRoadmap">Academic Year Roadmap (Years 1–4)</span>
+                    </button>
+                    <button onclick="switchTab('courses')" id="tab-courses"
+                        class="nav-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap text-slate-300 hover:bg-panelLight transition cursor-pointer">
+                        ⚔️ <span data-i18n="tabCourses">8 Core Courses & 20-MCQ Exams</span>
+                    </button>
+                    <button onclick="switchTab('careers')" id="tab-careers"
+                        class="nav-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap text-slate-300 hover:bg-panelLight transition cursor-pointer">
+                        🚀 <span data-i18n="tabCareers">Career Tracks & Company Interview Arena</span>
+                    </button>
+                    <button onclick="switchTab('analytics')" id="tab-analytics"
+                        class="nav-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap text-slate-300 hover:bg-panelLight transition cursor-pointer">
+                        🏆 <span data-i18n="tabAnalytics">Best Course Scoreboard & Skill Matrix</span>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- MAIN WORKSPACE -->
+        <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <!-- ==================== TAB 1: ACADEMIC YEAR ROADMAP ==================== -->
+            <section id="section-roadmap" class="tab-section space-y-6">
+                <div class="cyber-card rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs font-mono uppercase tracking-widest text-neonCyan font-bold" data-i18n="uecCurriculumTag">UEC UNIVERSITY // COMPUTER SCIENCE CURRICULUM</span>
+                        <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-white mt-1" data-i18n="roadmapHeading">Academic Year Skill Roadmap</h2>
+                        <p class="text-sm text-slate-400 mt-1" data-i18n="roadmapSub">Select any academic year (Years 1 to 4) to explore essential courses, core CS milestones, and launch technical assessments.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2" id="roadmapYearTabs">
+                        <button onclick="selectRoadmapYear(1)" data-ryear="1" class="ryear-btn px-4 py-2 rounded-xl text-xs font-bold border border-neonCyan bg-neonCyan/20 text-neonCyan cursor-pointer">Year 1</button>
+                        <button onclick="selectRoadmapYear(2)" data-ryear="2" class="ryear-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-panel text-slate-300 cursor-pointer">Year 2</button>
+                        <button onclick="selectRoadmapYear(3)" data-ryear="3" class="ryear-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-panel text-slate-300 cursor-pointer">Year 3</button>
+                        <button onclick="selectRoadmapYear(4)" data-ryear="4" class="ryear-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-panel text-slate-300 cursor-pointer">Year 4</button>
+                    </div>
+                </div>
+
+                <div id="roadmapContentContainer" class="space-y-6">
+                    <!-- Rendered dynamically -->
+                </div>
+            </section>
+
+            <!-- ==================== TAB 2: 8 CORE CS COURSES & 20-MCQ EXAMS ==================== -->
+            <section id="section-courses" class="tab-section hidden space-y-6">
+                <div class="cyber-card rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs font-mono uppercase tracking-widest text-neonMagenta font-bold">STRICT ENGLISH TECHNICAL BENCHMARK // 160 QUESTIONS</span>
+                        <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-white mt-1" data-i18n="coursesHeading">CS Course Mastery & 20-Question Exams</h2>
+                        <p class="text-sm text-slate-400 mt-1" data-i18n="coursesSub">Each course contains 20 university-level Computer Science MCQs in English. Correct answers auto-advance immediately; wrong answers reveal a concise technical breakdown.</p>
+                    </div>
+                    <div class="px-4 py-2.5 rounded-xl bg-obsidian border border-neonCyan/30 text-xs font-mono text-neonCyan shrink-0">
+                        ⚡ Auto-Advance on Correct • Instant Review on Mistake
+                    </div>
+                </div>
+
+                <div id="coursesGridContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <!-- 8 Course Cards rendered dynamically -->
+                </div>
+            </section>
+
+            <!-- ==================== TAB 3: CAREER TRACKS & INTERVIEW ARENA ==================== -->
+            <section id="section-careers" class="tab-section hidden space-y-6">
+                <div class="cyber-card rounded-2xl p-6">
+                    <span class="text-xs font-mono uppercase tracking-widest text-neonPurple font-bold" data-i18n="careerArenaTag">INDUSTRY LAUNCHPAD & RECRUITER PREP</span>
+                    <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-white mt-1" data-i18n="careersHeading">CS Career Tracks & Company Interview Prep</h2>
+                    <p class="text-sm text-slate-400 mt-1" data-i18n="careersSub">Discover post-graduation roles, required tech stacks, linked UEC courses, and real company interview questions with winning answer frameworks.</p>
+                </div>
+
+                <div id="careersGridContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- 8 Career Track Cards rendered dynamically -->
+                </div>
+            </section>
+
+            <!-- ==================== TAB 4: BEST COURSE SCOREBOARD & SKILL MATRIX ==================== -->
+            <section id="section-analytics" class="tab-section hidden space-y-6">
+                <div id="bestCourseHeroBanner" class="cyber-card rounded-2xl p-6 sm:p-8 border-neonGold/40 relative overflow-hidden">
+                    <!-- Crowned Best Course & Recommended Track rendered dynamically -->
+                </div>
+
+                <div class="cyber-card rounded-2xl p-6">
+                    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                        <div>
+                            <h3 class="font-display text-xl font-bold text-white" data-i18n="leaderboardTitle">Course Performance Leaderboard (Ranked by High Score)</h3>
+                            <p class="text-xs text-slate-400 mt-0.5" data-i18n="leaderboardSub">Take more 20-question exams to unlock higher ranks and identify your strongest Computer Science specialization.</p>
+                        </div>
+                        <button onclick="resetAllScores()" class="px-3.5 py-2 rounded-xl bg-neonRed/10 hover:bg-neonRed/20 border border-neonRed/40 text-xs font-bold text-neonRed transition cursor-pointer" data-i18n="btnResetScores">
+                            Reset Exam Scores
+                        </button>
+                    </div>
+                    <div id="leaderboardList" class="space-y-3">
+                        <!-- Ranked bars rendered dynamically -->
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="border-t border-slate-800/80 bg-obsidian/90 py-6 mt-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+                <div class="font-mono"><span class="text-neonCyan font-bold">NEXT GATE</span> // University of Engineering & Computing (UEC)</div>
+                <div data-i18n="footerNote">Built for Computer Science Students • English Technical Assessments Always Enforced</div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ==================== 20-QUESTION TECHNICAL EXAM MODAL (ALWAYS ENGLISH) ==================== -->
+    <div id="quizModal" class="fixed inset-0 z-50 hidden bg-obsidian/95 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 overflow-y-auto" dir="ltr">
+        <div class="w-full max-w-3xl cyber-card rounded-2xl border-neonCyan/40 overflow-hidden flex flex-col my-auto">
+            <!-- Quiz Top HUD -->
+            <div class="px-5 py-4 bg-panel border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2 py-0.5 rounded bg-neonMagenta/20 text-neonMagenta border border-neonMagenta/40 font-mono text-[10px] font-bold uppercase">
+                            Technical Assessment (English Required)
+                        </span>
+                        <span id="quizProgressLabel" class="font-mono text-xs text-neonCyan font-bold">Question 1 / 20</span>
+                    </div>
+                    <h3 id="quizCourseTitle" class="font-display text-lg sm:text-xl font-bold text-white mt-1">Course Name</h3>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="px-3 py-1.5 rounded-xl bg-obsidian border border-slate-700 font-mono text-xs">
+                        Score: <span id="quizLiveScore" class="text-neonGreen font-bold">0</span> / 20
+                    </div>
+                    <button onclick="closeQuizModal()" class="p-2 rounded-xl bg-obsidian hover:bg-neonRed/20 text-slate-400 hover:text-neonRed border border-slate-700 transition cursor-pointer" title="Exit Exam">
+                        ✕
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full h-1.5 bg-slate-800">
+                <div id="quizProgressBar" class="h-full bg-gradient-to-r from-neonCyan via-neonPurple to-neonMagenta transition-all duration-300" style="width: 5%"></div>
+            </div>
+
+            <!-- Quiz Question Body -->
+            <div id="quizBody" class="p-5 sm:p-8 space-y-5">
+                <div id="quizQuestionText" class="text-base sm:text-lg font-semibold text-white leading-relaxed font-sans">
+                    Question text loads here...
+                </div>
+
+                <div id="quizOptionsContainer" class="space-y-3">
+                    <!-- 4 Options injected dynamically -->
+                </div>
+
+                <!-- Concise Technical Explanation Box (Shown ONLY when wrong) -->
+                <div id="quizExplanationBox" class="hidden rounded-xl bg-neonRed/10 border border-neonRed/40 p-4 space-y-2">
+                    <div class="flex items-center gap-2 text-neonRed font-display font-bold text-xs uppercase tracking-wider">
+                        <span>⚠️ Incorrect Selection — Technical Breakdown</span>
+                    </div>
+                    <p id="quizExplanationText" class="text-sm text-slate-200 leading-relaxed"></p>
+                    <div class="pt-2 flex justify-end">
+                        <button onclick="advanceToNextQuestion()" class="px-5 py-2.5 rounded-xl bg-neonCyan text-obsidian font-display font-bold text-xs uppercase tracking-wider hover:opacity-90 transition cursor-pointer">
+                            Next Question →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Completion Summary Screen -->
+            <div id="quizSummaryScreen" class="hidden p-6 sm:p-10 text-center space-y-6">
+                <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-neonCyan/20 to-neonPurple/20 border border-neonCyan flex items-center justify-center text-4xl">
+                    🏆
+                </div>
+                <div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-neonCyan">ASSESSMENT COMPLETE</span>
+                    <h3 id="summaryCourseName" class="font-display text-2xl sm:text-3xl font-black text-white mt-1">Course Title</h3>
+                </div>
+                <div class="grid grid-cols-3 gap-4 max-w-md mx-auto">
+                    <div class="p-4 rounded-xl bg-obsidian border border-slate-800">
+                        <div class="text-xs text-slate-400">Final Score</div>
+                        <div id="summaryScoreVal" class="font-display text-2xl font-black text-neonGreen mt-1">18/20</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-obsidian border border-slate-800">
+                        <div class="text-xs text-slate-400">Accuracy</div>
+                        <div id="summaryPctVal" class="font-display text-2xl font-black text-neonCyan mt-1">90%</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-obsidian border border-slate-800">
+                        <div class="text-xs text-slate-400">Rank Tier</div>
+                        <div id="summaryRankVal" class="font-display text-lg font-black text-neonGold mt-1.5">ELITE</div>
+                    </div>
+                </div>
+                <p id="summaryFeedback" class="text-sm text-slate-300 max-w-lg mx-auto"></p>
+                <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+                    <button onclick="retakeCurrentQuiz()" class="px-5 py-2.5 rounded-xl bg-panelLight border border-slate-700 hover:border-neonCyan text-xs font-bold text-white transition cursor-pointer">
+                        ↻ Retake Exam
+                    </button>
+                    <button onclick="closeQuizAndViewScoreboard()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-neonCyan to-neonPurple text-obsidian font-display font-bold text-xs uppercase tracking-wider transition cursor-pointer">
+                        View Best Course Scoreboard →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== INTERVIEW PREP MODAL ==================== -->
+    <div id="interviewModal" class="fixed inset-0 z-50 hidden bg-obsidian/90 backdrop-blur-lg flex items-center justify-center p-4 overflow-y-auto">
+        <div class="w-full max-w-3xl cyber-card rounded-2xl border-neonPurple/50 overflow-hidden my-auto">
+            <div class="px-6 py-4 bg-panel border-b border-slate-800 flex items-center justify-between gap-3">
+                <div>
+                    <span class="text-[11px] font-mono text-neonPurple font-bold uppercase" data-i18n="interviewArenaBadge">COMPANY INTERVIEW PREP ARENA</span>
+                    <h3 id="interviewModalTitle" class="font-display text-xl font-bold text-white mt-0.5">Career Role</h3>
+                </div>
+                <button onclick="closeInterviewModal()" class="p-2 rounded-xl bg-obsidian text-slate-400 hover:text-white border border-slate-700 cursor-pointer">✕</button>
+            </div>
+            <div id="interviewModalBody" class="p-6 space-y-6 max-h-[78vh] overflow-y-auto">
+                <!-- Populated dynamically in EN or AR -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // =========================================================================
+    // 1. BILINGUAL UI TRANSLATIONS (ENGLISH & ARABIC)
+    // =========================================================================
+    const I18N = {
+        en: {
+            loginSubtitle: "University of Engineering & Computing (UEC) — Computer Science Career Launchpad & Technical Skill Arena.",
+            lblStudentName: "Student Full Name",
+            lblStudentId: "UEC University ID",
+            lblAcademicYear: "Academic Year (Computer Science)",
+            btnEnterPortal: "INITIALIZE PLAYER PROFILE & ENTER NEXT GATE →",
+            headerTagline: "CS Career Readiness & Technical Assessment Arena",
+            lblLogout: "Switch",
+            tabRoadmap: "Academic Year Roadmap (Years 1–4)",
+            tabCourses: "8 Core Courses & 20-MCQ Exams",
+            tabCareers: "Career Tracks & Company Interview Arena",
+            tabAnalytics: "Best Course Scoreboard & Skill Matrix",
+            uecCurriculumTag: "UEC UNIVERSITY // COMPUTER SCIENCE CURRICULUM",
+            roadmapHeading: "Academic Year Skill Roadmap",
+            roadmapSub: "Select any academic year (Years 1 to 4) to explore essential courses, core CS milestones, and launch technical assessments.",
+            coursesHeading: "CS Course Mastery & 20-Question Exams",
+            coursesSub: "Each course contains 20 university-level Computer Science MCQs in English. Correct answers auto-advance immediately; wrong answers reveal a concise technical breakdown.",
+            careerArenaTag: "INDUSTRY LAUNCHPAD & RECRUITER PREP",
+            careersHeading: "CS Career Tracks & Company Interview Prep",
+            careersSub: "Discover post-graduation roles, required tech stacks, linked UEC courses, and real company interview questions with winning answer frameworks.",
+            leaderboardTitle: "Course Performance Leaderboard (Ranked by High Score)",
+            leaderboardSub: "Take more 20-question exams to unlock higher ranks and identify your strongest Computer Science specialization.",
+            btnResetScores: "Reset Exam Scores",
+            footerNote: "Built for Computer Science Students • English Technical Assessments Always Enforced",
+            interviewArenaBadge: "COMPANY INTERVIEW PREP ARENA",
+            startExamBtn: "Start 20-Q Exam (EN)",
+            retakeExamBtn: "Retake 20-Q Exam",
+            bestScoreLabel: "Best Score",
+            yourYearBadge: "Your Current Year",
+            milestoneTitle: "Core Engineering Milestones",
+            yearCoursesTitle: "Recommended Skill Courses & Assessments",
+            openInterviewBtn: "Open Company Interview Prep",
+            techStackLabel: "Core Tech Stack",
+            linkedCourseLabel: "Primary Assessment Course",
+            interviewTechQ: "Real Company Technical Questions & Winning Answers",
+            interviewBehavioral: "Behavioral STAR Framework & Recruiter Checklist",
+            redFlagsTitle: "Common Candidate Red Flags vs. Pro Tips",
+            bestCourseCrown: "#1 BEST-PERFORMING COURSE & RECOMMENDED CAREER FIT",
+            noScoresYet: "Complete your first 20-question course assessment to unlock your #1 Best Course & Career Recommendation!"
+        },
+        ar: {
+            loginSubtitle: "جامعة الهندسة والحوسبة (UEC) — منصة تأهيل طلاب علوم الحاسب لسوق العمل واختبارات المهارات التقنية.",
+            lblStudentName: "اسم الطالب بالكامل",
+            lblStudentId: "الرقم الجامعي (UEC ID)",
+            lblAcademicYear: "السنة الدراسية (كلية الحاسبات والمعلومات)",
+            btnEnterPortal: "تسجيل الدخول وبدء رحلة التطوير في NEXT GATE ←",
+            headerTagline: "منصة تأهيل خريجي علوم الحاسب واختبارات التقييم التقني",
+            lblLogout: "تبديل الطالب",
+            tabRoadmap: "خريطة السنوات الدراسية (أولى – رابعة)",
+            tabCourses: "الكورسات الـ 8 واختبارات الـ 20 سؤال",
+            tabCareers: "المسارات الوظيفية وتجهيز مقابلات الشركات",
+            tabAnalytics: "لوحة الصدارة وأفضل كورس للطالب",
+            uecCurriculumTag: "جامعة UEC // منهج علوم الحاسب وتطوير المهارات",
+            roadmapHeading: "خريطة بناء المهارات حسب السنة الدراسية",
+            roadmapSub: "اختر سنتك الدراسية (من الأولى إلى الرابعة) لمعرفة الكورسات الأساسية المطلوبة لتطوير مستواك وبدء الاختبار التقني.",
+            coursesHeading: "الكورسات التخصصية واختبارات التقييم (20 سؤال)",
+            coursesSub: "كل كورس يحتوي على 20 سؤال اختيار من متعدد صعب باللغة الإنجليزية لتقييم فهمك الحقيقي. الإجابة الصحيحة تنقلك فوراً للسؤال التالي، والخطأ يظهر لك شرحاً مبسطاً.",
+            careerArenaTag: "بوابة التوظيف وتجهيز المقابلات التقنية",
+            careersHeading: "مسارات العمل بعد التخرج وتجهيز مقابلات الشركات",
+            careersSub: "تعرف على مجالات العمل المتاحة لخريجي حاسبات ومعلومات، التقنيات المطلوبة، وأهم أسئلة الانترفيو في الشركات وكيفية الإجابة عليها باحترافية.",
+            leaderboardTitle: "ترتيب الكورسات حسب أعلى درجة حققتها",
+            leaderboardSub: "اختبر نفسك في الكورسات المختلفة لاكتشاف التخصص الأقوى لديك والمسار الوظيفي الأنسب لمهاراتك.",
+            btnResetScores: "إعادة ضبط الدرجات",
+            footerNote: "مصمم خصيصاً لطلاب علوم الحاسب • الاختبارات التقنية متاحة باللغة الإنجليزية دائماً",
+            interviewArenaBadge: "ساحة الاستعداد لمقابلات الشركات (INTERVIEW PREP)",
+            startExamBtn: "ابدأ اختبار الـ 20 سؤال (EN)",
+            retakeExamBtn: "إعادة الاختبار (EN)",
+            bestScoreLabel: "أعلى درجة",
+            yourYearBadge: "سنتك الدراسية الحالية",
+            milestoneTitle: "أهم الأهداف التقنية في هذه السنة",
+            yearCoursesTitle: "الكورسات والاختبارات المقترحة لتطوير مهاراتك",
+            openInterviewBtn: "تجهيز الانترفيو وأسئلة الشركات",
+            techStackLabel: "أهم التقنيات والأدوات المطلوبة",
+            linkedCourseLabel: "الكورس التقييمي المرتبط",
+            interviewTechQ: "أسئلة الانترفيو التقنية الحقيقية وإجاباتها النموذجية",
+            interviewBehavioral: "إطار الإجابة السلوكية (STAR) وقائمة مراجعة المقابلة",
+            redFlagsTitle: "أخطاء شائعة يقع فيها الخريجون ونصائح القبول",
+            bestCourseCrown: "أفضل كورس حققت فيه أعلى مجموع والتخصص الأنسب لك",
+            noScoresYet: "ابدأ بحل أول اختبار من 20 سؤال في أي كورس ليتم تحديد أفضل تخصص ومجال عمل يناسبك!"
+        }
+    };
+
+    // =========================================================================
+    // 2. ACADEMIC YEAR ROADMAPS DATA (YEARS 1 - 4)
+    // =========================================================================
+    const YEAR_ROADMAPS = {
+        1: {
+            titleEn: "Year 1 (Freshman): Algorithmic Thinking & Low-Level Foundations",
+            titleAr: "السنة الأولى (Freshman): التفكير الخوارزمي وأساسيات البرمجة",
+            focusEn: "Build rock-solid problem-solving habits in C++/Python, understand memory pointers, discrete mathematics, and how hardware executes instructions.",
+            focusAr: "بناء أساس قوي في حل المشكلات البرمجية (Problem Solving)، فهم الذاكرة والمؤشرات، الرياضيات المتقطعة، وكيفية عمل المعالج.",
+            milestonesEn: [
+                "Solve 150+ foundational problems on Codeforces / LeetCode (arrays, strings, recursion).",
+                "Master Git version control, Linux terminal basics, and clean modular functions.",
+                "Build a console-based student management or library engine in C++."
+            ],
+            milestonesAr: [
+                "حل أكثر من 150 مسألة برمجية أساسية على Codeforces و LeetCode.",
+                "إتقان أساسيات Git و سطر أوامر Linux وكتابة كود منظم.",
+                "بناء مشروع متكامل بلغة C++ لإدارة البيانات باستخدام الملفات والهياكل."
+            ],
+            courseIds: ["oop", "dsa"]
+        },
+        2: {
+            titleEn: "Year 2 (Sophomore): Data Structures, OOP & Operating Systems",
+            titleAr: "السنة الثانية (Sophomore): هياكل البيانات، البرمجة الكائنية ونظم التشغيل",
+            focusEn: "Transition from writing code that works to writing code that scales. Master time/space complexity, SOLID design patterns, and OS concurrency.",
+            focusAr: "الانتقال من مجرد كتابة كود يعمل إلى كتابة كود سريع وقابل للتوسع. إتقان تحليل التعقيد الزمني، أنماط التصميم SOLID، وإدارة العمليات في نظم التشغيل.",
+            milestonesEn: [
+                "Implement Trees, Graphs, Hash Tables, and Dynamic Programming from scratch.",
+                "Refactor a multi-class project applying SOLID principles and Factory/Observer patterns.",
+                "Write multithreaded C/C++ or Python programs handling mutexes without deadlocks."
+            ],
+            milestonesAr: [
+                "بناء الأشجار (Trees)، الرسوم البيانية (Graphs)، والبرمجة الديناميكية من الصفر.",
+                "تطبيق مبادئ SOLID وأنماط التصميم البرمجية في مشاريع حقيقية.",
+                "كتابة برامج متعددة الخيوط (Multithreading) والتعامل مع التزامن ومنع Deadlocks."
+            ],
+            courseIds: ["dsa", "oop", "os"]
+        },
+        3: {
+            titleEn: "Year 3 (Junior): Databases, Networks, Security & Full-Stack Web",
+            titleAr: "السنة الثالثة (Junior): قواعد البيانات، الشبكات، الأمن السيبراني وتطوير الويب",
+            focusEn: "Prepare for summer tech internships by mastering relational databases, network protocols, cybersecurity defense, and modern web engineering.",
+            focusAr: "الاستعداد للتدريب الصيفي في الشركات (Internships) عبر إتقان قواعد البيانات، بروتوكولات الشبكات، الحماية السيبرانية، وتطوير تطبيقات الويب الحديثة.",
+            milestonesEn: [
+                "Design normalized PostgreSQL schemas, optimize slow queries using B+ Tree indexes.",
+                "Build and deploy a full-stack REST API application with JWT authentication and caching.",
+                "Audit web applications against OWASP Top 10 vulnerabilities (SQLi, XSS, CSRF)."
+            ],
+            milestonesAr: [
+                "تصميم قواعد بيانات احترافية وتحسين سرعة الاستعلامات باستخدام الفهارس (Indexes).",
+                "بناء ونشر تطبيق ويب متكامل (Full-Stack) مع نظام حماية JWT.",
+                "فحص وتأمين تطبيقات الويب ضد أشهر الثغرات الأمنية (OWASP Top 10)."
+            ],
+            courseIds: ["db", "netsec", "web"]
+        },
+        4: {
+            titleEn: "Year 4 (Senior): Distributed Systems, AI Engineering & Graduation Capstone",
+            titleAr: "السنة الرابعة (Senior): الأنظمة الموزعة، الذكاء الاصطناعي ومشروع التخرج",
+            focusEn: "Achieve industry readiness for full-time engineering roles with cloud microservices, machine learning pipelines, and system design mastery.",
+            focusAr: "الوصول للجاهزية الكاملة لسوق العمل عبر إتقان الحوسبة السحابية، الأنظمة الموزعة، هندسة الذكاء الاصطناعي، وتنفيذ مشروع تخرج احترافي.",
+            milestonesEn: [
+                "Architect a fault-tolerant capstone project using Docker, Kubernetes, and CI/CD.",
+                "Train, evaluate, and deploy a Machine Learning or LLM-powered service.",
+                "Complete 10+ mock technical & system design interviews before graduation."
+            ],
+            milestonesAr: [
+                "تصميم مشروع تخرج قابل للتوسع باستخدام Docker و Kubernetes و CI/CD.",
+                "تدريب ونشر نموذج ذكاء اصطناعي أو تعلم آلة في بيئة إنتاجية حقيقية.",
+                "اجتياز 10 مقابلات تقنية تجريبية (Mock Interviews) قبل التخرج."
+            ],
+            courseIds: ["dist", "aiml", "db"]
+        }
+    };
+
+    // =========================================================================
+    // 3. 8 CAREER TRACKS + COMPANY INTERVIEW PREP DATA
+    // =========================================================================
+    const CAREER_TRACKS = [
+        {
+            id: "backend",
+            courseId: "db",
+            recommendedTrackEn: "Backend & Distributed Systems Engineer",
+            recommendedTrackAr: "مهندس برمجيات خلفية وأنظمة موزعة (Backend Engineer)",
+            titleEn: "Backend Software Engineer",
+            titleAr: "مهندس برمجيات خلفية (Backend Engineer)",
+            descEn: "Architects high-throughput server APIs, database schemas, authentication gateways, and resilient microservices.",
+            descAr: "تصميم وبناء الخوادم، واجهات البرمجة (APIs)، قواعد البيانات الضخمة، وأنظمة الحماية والأداء العالي.",
+            stack: ["Node.js / Java / Go", "PostgreSQL", "Redis", "Docker", "REST & GraphQL"],
+            techQuestionsEn: [
+                { q: "How do you diagnose and fix an N+1 query bottleneck in an ORM?", a: "Explain eager loading (JOINs / dataloader batching), inspecting query execution plans via EXPLAIN ANALYZE, and adding composite indexes on foreign keys." },
+                { q: "Compare Stateful Session cookies vs. Stateless JWT authentication.", a: "Sessions store state in Redis/DB enabling instant revocation; JWTs self-contain signed claims for horizontal scalability but require short expiry + refresh token rotation." }
+            ],
+            techQuestionsAr: [
+                { q: "كيف تكتشف وتعالج مشكلة N+1 Query في قواعد البيانات؟", a: "استخدام التحميل المسبق (Eager Loading / JOINs)، تحليل خطة التنفيذ عبر EXPLAIN ANALYZE، وإضافة فهارس (Indexes) على المفاتيح الأجنبية." },
+                { q: "ما الفرق بين الجلسات (Sessions) ورموز JWT في المصادقة؟", a: "الجلسات تُخزن على السيرفر وتسمح بإلغاء الدخول فوراً، بينما JWT لا يحتاج تخزين على السيرفر مما يسهل التوسع الأفقي مع استخدام Refresh Tokens." }
+            ],
+            starTipEn: "Use STAR (Situation, Task, Action, Result): Quantify latency reductions (e.g., 'Reduced API p95 latency from 620ms to 85ms using Redis caching').",
+            starTipAr: "استخدم أسلوب STAR (الموقف، المهمة، الإجراء، النتيجة): اذكر أرقاماً واضحة مثل تقليل زمن استجابة السيرفر بنسبة 80%.",
+            redFlagsEn: "Writing raw string-concatenated SQL (SQL injection risk) or ignoring database transaction isolation under concurrent writes.",
+            redFlagsAr: "دمج نصوص SQL مباشرة دون Parameterized Queries أو تجاهل قفل المعاملات المتزامنة في قواعد البيانات."
+        },
+        {
+            id: "frontend",
+            courseId: "web",
+            recommendedTrackEn: "Frontend & Full-Stack Web Architect",
+            recommendedTrackAr: "مطور واجهات أمامية وتطبيقات ويب (Frontend Engineer)",
+            titleEn: "Frontend & Web Engineer",
+            titleAr: "مهندس واجهات وتطبيقات الويب (Frontend Engineer)",
+            descEn: "Builds ultra-responsive, accessible web applications with modern reactive frameworks, TypeScript, and Core Web Vitals optimization.",
+            descAr: "بناء واجهات مستخدم تفاعلية وسريعة ومتوافقة مع جميع الشاشات باستخدام أطر العمل الحديثة وتحسين تجربة المستخدم.",
+            stack: ["TypeScript", "React / Next.js", "Tailwind CSS", "State Management", "Web Performance"],
+            techQuestionsEn: [
+                { q: "Explain the JavaScript Event Loop, Microtasks, and Macrotasks.", a: "Synchronous call stack executes first, then all Microtasks (Promise.then, queueMicrotask) drain completely before the browser renders or runs the next Macrotask (setTimeout)." },
+                { q: "How do you prevent unnecessary re-renders in large React applications?", a: "Colocate state close to consumers, memoize expensive computations/callbacks selectively (useMemo/useCallback), virtualize long lists, and split code bundles." }
+            ],
+            techQuestionsAr: [
+                { q: "اشرح آلية عمل Event Loop والفرق بين Microtasks و Macrotasks في JavaScript.", a: "يُنفذ الكود المتزامن أولاً، ثم تُفرغ قائمة Microtasks (مثل Promises) بالكامل قبل تحديث الشاشة أو تنفيذ Macrotasks (مثل setTimeout)." },
+                { q: "كيف تمنع إعادة الرسم غير الضرورية (Re-renders) في تطبيقات React الكبيرة؟", a: "وضع الـ State في أقرب مكون يحتاجها، استخدام القوائم الافتراضية (Virtualization) للبيانات الضخمة، وتقسيم الكود (Code Splitting)." }
+            ],
+            starTipEn: "Showcase Lighthouse performance scores, WCAG accessibility improvements, and responsive mobile-first architecture.",
+            starTipAr: "اعرض نتائج تحسين سرعة الموقع (Lighthouse Score) ودعم تجربة الهاتف المحمول وسهولة الوصول.",
+            redFlagsEn: "Mutating state arrays directly in React or storing sensitive API secret keys inside frontend environment variables.",
+            redFlagsAr: "تعديل مصفوفات الحالة (State) مباشرة دون نسخها، أو وضع مفاتيح سرية حساسة داخل كود الواجهة الأمامية."
+        },
+        {
+            id: "aiml",
+            courseId: "aiml",
+            recommendedTrackEn: "AI & Machine Learning Engineer",
+            recommendedTrackAr: "مهندس ذكاء اصطناعي وتعلم آلة (AI / ML Engineer)",
+            titleEn: "AI & Machine Learning Engineer",
+            titleAr: "مهندس ذكاء اصطناعي وتعلم آلة (AI & ML Engineer)",
+            descEn: "Trains neural networks, builds Retrieval-Augmented Generation (RAG) LLM systems, and deploys scalable ML inference APIs.",
+            descAr: "تدريب الشبكات العصبية، بناء أنظمة الذكاء الاصطناعي التوليدي (LLMs / RAG)، ونشر نماذج التعلم الآلي في بيئات الإنتاج.",
+            stack: ["Python", "PyTorch", "Transformers / LLMs", "Vector DBs", "FastAPI & MLOps"],
+            techQuestionsEn: [
+                { q: "Why is Accuracy misleading on imbalanced datasets, and what metrics replace it?", a: "On 99:1 class imbalance, predicting majority gives 99% accuracy with 0 recall. Use Precision-Recall AUC, F1-Score, and confusion matrix cost analysis." },
+                { q: "How does Retrieval-Augmented Generation (RAG) reduce LLM hallucinations?", a: "RAG embeds user queries, retrieves verified domain chunks from a vector database via cosine similarity, and grounds the LLM prompt strictly in retrieved context." }
+            ],
+            techQuestionsAr: [
+                { q: "لماذا تكون دقة النموذج (Accuracy) مضللة في البيانات غير المتوازنة؟ وما البديل؟", a: "إذا كانت 99% من البيانات فئة واحدة فالتنبؤ الدائم بها يعطي 99% دقة رغم فشل النموذج؛ نستخدم F1-Score و Precision-Recall AUC." },
+                { q: "كيف تقلل تقنية RAG من هلوسة النماذج اللغوية الكبيرة (LLMs)؟", a: "تقوم بالبحث الدلالي في قاعدة بيانات موثقة وإرفاق الحقائق المسترجعة داخل سياق السؤال قبل توليد الإجابة." }
+            ],
+            starTipEn: "Discuss data leakage prevention, baseline model comparison, and production inference latency optimization.",
+            starTipAr: "تحدث عن منع تسرب البيانات (Data Leakage)، مقارنة النموذج بنموذج أساسي بسيط، وتقليل زمن الاستجابة.",
+            redFlagsEn: "Fitting StandardScaler or SMOTE before train/test splitting (causes severe data leakage).",
+            redFlagsAr: "تطبيق تطبيع البيانات (Scaling) قبل تقسيم البيانات إلى تدريب واختبار مما يسبب تسرب البيانات."
+        },
+        {
+            id: "cyber",
+            courseId: "netsec",
+            recommendedTrackEn: "Cybersecurity & Network Defense Specialist",
+            recommendedTrackAr: "مهندس أمن سيبراني وحماية شبكات (Cybersecurity Engineer)",
+            titleEn: "Cybersecurity Analyst & Pentester",
+            titleAr: "محلل أمن سيبراني ومختبر اختراق (Cybersecurity)",
+            descEn: "Secures networks, conducts penetration testing against OWASP vulnerabilities, and investigates incident telemetry in SOC environments.",
+            descAr: "حماية الشبكات والأنظمة، تنفيذ اختبارات الاختراق الأخلاقي، اكتشاف الثغرات الأمنية، والاستجابة للحوادث السيبرانية.",
+            stack: ["Linux & Bash", "TCP/IP & Wireshark", "Burp Suite", "OWASP Top 10", "SIEM & Cryptography"],
+            techQuestionsEn: [
+                { q: "Explain the difference between XSS and CSRF and how modern apps mitigate both.", a: "XSS injects malicious JS into trusted pages (mitigated via output encoding & CSP); CSRF tricks authenticated browsers into unwanted requests (mitigated via SameSite cookies & anti-CSRF tokens)." },
+                { q: "Walk through what happens during a TLS 1.3 handshake.", a: "Client and server exchange key shares (ECDHE) in 1-RTT, verify X.509 certificate chain via CA, derive symmetric session keys, and encrypt all application traffic with Forward Secrecy." }
+            ],
+            techQuestionsAr: [
+                { q: "ما الفرق بين ثغرتي XSS و CSRF وكيف يتم الحماية منهما؟", a: "XSS تحقن كود جافاسكريبت خبيث في الصفحة (الحل: ترميز المخرجات و CSP)، بينما CSRF تستغل جلسة المستخدم لتنفيذ طلبات غير مصرح بها (الحل: SameSite Cookies و CSRF Tokens)." },
+                { q: "اشرح باختصار خطوات مصافحة التشفير TLS 1.3.", a: "يتبادل الطرفان مفاتيح التشفير، يتم التحقق من الشهادة الرقمية للسيرفر، ثم يُشتق مفتاح تشفير متماثل سريع لتأمين الاتصال بالكامل." }
+            ],
+            starTipEn: "Present structured vulnerability reports detailing CVSS severity, proof-of-concept steps, and concrete remediation patches.",
+            starTipAr: "اعرض تقارير ثغرات منظمة توضح درجة الخطورة وخطوات إعادة الإنتاج وكيفية إغلاق الثغرة برمجياً.",
+            redFlagsEn: "Confusing encryption (reversible with key) with cryptographic hashing (one-way integrity/password storage with Argon2/bcrypt).",
+            redFlagsAr: "الخلط بين التشفير القابل للفك (Encryption) والتجزئة ذات الاتجاه الواحد (Hashing) المستخدمة لحفظ كلمات المرور."
+        },
+        {
+            id: "cloud",
+            courseId: "dist",
+            recommendedTrackEn: "Cloud & DevOps Infrastructure Engineer",
+            recommendedTrackAr: "مهندس حوسبة سحابية و DevOps (Cloud & DevOps)",
+            titleEn: "Cloud & DevOps Engineer",
+            titleAr: "مهندس حوسبة سحابية و DevOps",
+            descEn: "Automates CI/CD delivery pipelines, orchestrates Kubernetes clusters, and provisions resilient cloud architectures via Infrastructure as Code.",
+            descAr: "أتمتة عمليات النشر المستمر (CI/CD)، إدارة الحاويات عبر Kubernetes، وبناء البنية التحتية السحابية ككود (Terraform).",
+            stack: ["AWS / Azure", "Docker & Kubernetes", "Terraform", "GitHub Actions", "Prometheus & Grafana"],
+            techQuestionsEn: [
+                { q: "How do Containers differ from Virtual Machines at the OS kernel level?", a: "VMs virtualize hardware and run separate guest OS kernels via a hypervisor; Containers share the host Linux kernel using namespaces (isolation) and cgroups (resource limits)." },
+                { q: "Compare Blue-Green vs. Canary deployment strategies.", a: "Blue-Green switches 100% traffic between two identical environments for instant rollback; Canary routes a small percentage (e.g., 5%) of live traffic to verify stability gradually." }
+            ],
+            techQuestionsAr: [
+                { q: "ما الفرق الجوهري بين الحاويات (Containers) والآلات الافتراضية (VMs)؟", a: "الآلات الافتراضية تشغل نظام تشغيل كامل منفصل لكل آلة، بينما الحاويات تشارك نواة نظام التشغيل المضيف مع عزل العمليات والموارد." },
+                { q: "قارن بين استراتيجيتي النشر Blue-Green و Canary.", a: "Blue-Green تنقل 100% من الزوار لبيئة جديدة جاهزة مع إمكانية التراجع الفوري، بينما Canary توجه نسبة صغيرة (5%) تدريجياً للتأكد من الاستقرار." }
+            ],
+            starTipEn: "Highlight zero-downtime deployment pipelines, automated rollback triggers, and cloud cost optimization percentages.",
+            starTipAr: "ركز على بناء أنظمة نشر بدون توقف للخدمة (Zero-Downtime) وتقليل تكلفة الخوادم السحابية.",
+            redFlagsEn: "Running containers as root user or baking hardcoded secrets into Docker images.",
+            redFlagsAr: "تشغيل الحاويات بصلاحيات الجذر (Root) أو وضع كلمات المرور داخل ملفات Docker Image."
+        },
+        {
+            id: "systems",
+            courseId: "os",
+            recommendedTrackEn: "Systems, Embedded & Low-Level Software Engineer",
+            recommendedTrackAr: "مهندس أنظمة تشغيل وبرمجيات منخفضة المستوى (Systems Engineer)",
+            titleEn: "Systems & Concurrency Engineer",
+            titleAr: "مهندس أنظمة وبرمجة متزامنة (Systems Engineer)",
+            descEn: "Builds high-efficiency system software, operating system kernels, embedded firmware, and lock-free concurrent engines in C, C++, and Rust.",
+            descAr: "تطوير برمجيات الأنظمة عالية الأداء، نوى أنظمة التشغيل، البرمجيات المدمجة، والمحركات المتزامنة بلغات C و C++ و Rust.",
+            stack: ["C / C++ / Rust", "Linux Kernel & POSIX", "Multithreading", "Memory Management", "Embedded / RTOS"],
+            techQuestionsEn: [
+                { q: "What are the four Coffman conditions required for a Deadlock to occur?", a: "Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait. Breaking any single condition (such as enforcing global lock ordering) prevents deadlocks." },
+                { q: "Explain Virtual Memory paging and the role of the TLB.", a: "Virtual memory maps process virtual addresses to physical frames via page tables; the Translation Lookaside Buffer (TLB) caches recent page-table translations in hardware for nanosecond lookups." }
+            ],
+            techQuestionsAr: [
+                { q: "ما هي الشروط الأربعة لحدوث الجمود (Deadlock) وكيف نمنعه؟", a: "الاستبعاد المتبادل، الاحتجاز والانتظار، عدم الانتزاع، والانتظار الدائري. كسر أي شرط مثل توحيد ترتيب طلب الأقفال يمنع المشكلة." },
+                { q: "اشرح الذاكرة الافتراضية (Virtual Memory) ودور ذاكرة TLB.", a: "تربط العناوين الافتراضية للبرنامج بالإطارات الفيزيائية في الرام عبر جداول الصفحات، وتعمل TLB كذاكرة مخبئية سريعة لتسريع هذه الترجمة." }
+            ],
+            starTipEn: "Demonstrate profiling mastery using Valgrind, perf, or AddressSanitizer to eliminate memory leaks and race conditions.",
+            starTipAr: "أظهر قدرتك على استخدام أدوات تحليل الأداء والذاكرة مثل Valgrind لاكتشاف تسرب الذاكرة وسباق الخيوط.",
+            redFlagsEn: "Assuming multi-threaded increments (counter++) are atomic without mutexes or std::atomic.",
+            redFlagsAr: "افتراض أن زيادة متغير مشترك بين عدة خيوط (counter++) عملية ذرية آمنة بدون أقفال حماية."
+        },
+        {
+            id: "swe_core",
+            courseId: "dsa",
+            recommendedTrackEn: "Core Algorithms & Competitive Software Engineer",
+            recommendedTrackAr: "مهندس خوارزميات وهياكل بيانات (Software Engineer)",
+            titleEn: "Core Software Engineer (Algorithms)",
+            titleAr: "مهندس برمجيات وخوارزميات (Core SWE)",
+            descEn: "Solves complex computational problems, optimizes algorithmic bottlenecks, and passes top-tier global software engineering coding interviews.",
+            descAr: "حل المشكلات الحسابية المعقدة، تحسين كفاءة الخوارزميات، واجتياز المقابلات البرمجية في كبرى شركات التكنولوجيا.",
+            stack: ["C++ / Python / Java", "Trees & Graphs", "Dynamic Programming", "Hash Tables & Heaps", "Complexity Analysis"],
+            techQuestionsEn: [
+                { q: "How do you detect a cycle in a directed graph vs. an undirected graph?", a: "In undirected graphs, DFS checks if an adjacent visited node is not the parent. In directed graphs, use 3-color DFS (Unvisited, Visiting/In-Stack, Visited) or Kahn's topological sort." },
+                { q: "When do you choose a Heap (Priority Queue) over sorting the entire array?", a: "When you only need the top-K elements or streaming min/max updates, reducing O(N log N) full sorting to O(N log K) time and O(K) space." }
+            ],
+            techQuestionsAr: [
+                { q: "كيف تكتشف وجود حلقة (Cycle) في رسم بياني موجه مقابل غير موجه؟", a: "في غير الموجه نتحقق من زيارة جار ليس هو الأب المباشر؛ في الموجه نستخدم تلوين العقد الثلاثي في DFS أو خوارزمية Kahn للترتيب الطوبولوجي." },
+                { q: "متى تفضل استخدام Heap (Priority Queue) بدلاً من ترتيب المصفوفة بالكامل؟", a: "عند الحاجة لأكبر أو أصغر K عناصر فقط أو التعامل مع بيانات متدفقة، مما يقلل التعقيد من O(N log N) إلى O(N log K)." }
+            ],
+            starTipEn: "Always state brute-force complexity first, optimize step-by-step, verify edge cases (empty input, duplicates, overflow), and write clean modular code.",
+            starTipAr: "اذكر الحل المبدئي وتعقيده الزمني أولاً، ثم حسّن الخوارزمية تدريجياً واختبر الحالات الحدية قبل كتابة الكود.",
+            redFlagsEn: "Jumping straight into coding without clarifying constraints (N size, negative numbers, memory limits).",
+            redFlagsAr: "البدء في كتابة الكود فوراً دون السؤال عن قيود المدخلات (حجم N، الأرقام السالبة، حدود الذاكرة)."
+        },
+        {
+            id: "architect",
+            courseId: "oop",
+            recommendedTrackEn: "Software Architect & Clean Code Lead",
+            recommendedTrackAr: "معماري برمجيات ومصمم أنظمة نظيفة (Software Architect)",
+            titleEn: "Software Design & OOP Specialist",
+            titleAr: "متخصص تصميم البرمجيات والهندسة النظيفة",
+            descEn: "Designs maintainable, extensible enterprise codebases using SOLID principles, modular design patterns, and clean domain-driven architecture.",
+            descAr: "تصميم أنظمة برمجية نظيفة وقابلة للصيانة والتوسع باستخدام مبادئ SOLID وأنماط التصميم القياسية.",
+            stack: ["SOLID Principles", "Design Patterns", "Clean Architecture", "UML & Domain Modeling", "Automated Testing"],
+            techQuestionsEn: [
+                { q: "Explain the Dependency Inversion Principle (DIP) with a practical example.", a: "High-level business logic should depend on abstractions (interfaces like PaymentGateway), not concrete low-level modules (StripeClient), enabling easy swapping and unit mocking." },
+                { q: "When should you prefer Composition over Inheritance?", a: "When sharing behavior across unrelated classes or avoiding fragile deep inheritance hierarchies; composition injects behavior dynamically via interfaces (Strategy pattern)." }
+            ],
+            techQuestionsAr: [
+                { q: "اشرح مبدأ عكس الاعتمادية (Dependency Inversion) مع مثال عملي.", a: "يجب أن تعتمد وحدات منطق العمل العليا على واجهات مجردة (Interfaces) وليس على تفاصيل التنفيذ المباشرة، مما يسهل الاختبار والتبديل." },
+                { q: "متى نفضل التركيب (Composition) على الوراثة (Inheritance)؟", a: "لتجنب تعقيد شجرة الوراثة الهشة ولتغيير سلوك الكائن ديناميكياً أثناء التشغيل عبر حقن الواجهات (مثل نمط Strategy)." }
+            ],
+            starTipEn: "Explain how clean abstractions cut onboarding time for new developers and allowed unit testing without external dependencies.",
+            starTipAr: "وضّح كيف ساعد التصميم النظيف في تقليل وقت فهم الكود للمبرمجين الجدد وتسهيل كتابة الاختبارات التلقائية.",
+            redFlagsEn: "Over-engineering simple CRUD scripts with unnecessary abstract factories or violating Liskov Substitution.",
+            redFlagsAr: "التعقيد المبالغ فيه لمهام بسيطة أو كسر مبدأ استبدال ليسكوف (LSP) في الوراثة."
+        }
+    ];
+
+    // =========================================================================
+    // 4. 8 CORE CS COURSES x 20 HARD TECHNICAL QUESTIONS = 160 VERIFIED MCQs
+    //    (Strictly in English, university-level Computer Science content)
+    // =========================================================================
+    const COURSES_DATA = [
+        {
+            id: "dsa",
+            code: "CS-201",
+            titleEn: "Data Structures & Algorithms",
+            titleAr: "هياكل البيانات والخوارزميات",
+            year: 2,
+            careerMatchEn: "Core Software Engineer (Algorithms)",
+            careerMatchAr: "مهندس برمجيات وخوارزميات",
+            badgeColor: "neonCyan",
+            questions: [
+                { q: "What is the tight worst-case time complexity of building a binary heap from an unsorted array of n elements using Floyd's bottom-up heapify algorithm?", opts: ["O(n log n)", "O(n)", "O(log n)", "O(n²)"], ans: 1, exp: "Bottom-up heapify sifts nodes down from height 1 to log n. Summing (n / 2^(h+1)) * O(h) converges to strictly O(n), faster than n repeated insertions." },
+                { q: "Which self-balancing binary search tree guarantees O(log n) worst-case lookup while requiring at most 2 rotations during an insertion?", opts: ["Splay Tree", "Red-Black Tree", "Treap", "Unbalanced BST"], ans: 1, exp: "Red-Black Trees enforce color invariants that bound height to 2*log2(n+1) and restore balance after insertion using at most two rotations." },
+                { q: "In Dijkstra's shortest-path algorithm implemented with a binary min-heap on a graph with V vertices and E edges, what is the time complexity?", opts: ["O(V²)", "O((V + E) log V)", "O(V log E + V²)", "O(E log E²)"], ans: 1, exp: "Each vertex is extracted once in O(log V) and each edge triggers at most one decrease-key in O(log V), yielding O((V + E) log V)." },
+                { q: "Why does Dijkstra's algorithm fail on graphs containing negative-weight edges even when no negative cycle exists?", opts: ["The min-heap overflows", "It greedily finalizes a vertex distance before a cheaper path via a negative edge is explored", "BFS queue order breaks", "Adjacency matrices cannot store negatives"], ans: 1, exp: "Dijkstra assumes adding an edge never decreases path cost; a negative edge later can invalidate an already popped 'finalized' vertex." },
+                { q: "What is the amortized time complexity of a single push_back operation in a dynamically resizing array that doubles its capacity when full?", opts: ["O(log n)", "O(1)", "O(n)", "O(√n)"], ans: 1, exp: "By the potential/accounting method, copying k elements occurs only every k insertions, spreading O(n) total copy work across n insertions for O(1) amortized cost." },
+                { q: "Which hashing collision resolution strategy suffers most from primary clustering?", opts: ["Separate Chaining with balanced trees", "Linear Probing", "Double Hashing", "Cuckoo Hashing"], ans: 1, exp: "Linear probing checks consecutive slots (h(k) + i) mod m, causing contiguous occupied runs to grow and merge into long clusters." },
+                { q: "Given a directed acyclic graph (DAG) with V vertices and E edges, what is the optimal time complexity to find single-source shortest paths (even with negative weights)?", opts: ["O(V³)", "O(V + E)", "O(V E)", "O(E log V)"], ans: 1, exp: "Topologically sorting the DAG takes O(V + E), followed by relaxing outgoing edges in topological order in O(V + E)." },
+                { q: "What is the worst-case time complexity of QuickSort when the pivot is always chosen as the smallest element in an already sorted array?", opts: ["O(n log n)", "O(n²)", "O(n)", "O(log n)"], ans: 1, exp: "Choosing an extreme pivot produces partitions of size 0 and n-1 at every step, yielding recurrence T(n) = T(n-1) + O(n) = O(n²)." },
+                { q: "Which data structure supports both O(1) average lookup and O(1) worst-case eviction of the least recently used item?", opts: ["Binary Search Tree + Stack", "Hash Map + Doubly Linked List", "Min-Heap + Array", "Trie + Queue"], ans: 1, exp: "An LRU Cache maps keys to doubly-linked-list nodes in a Hash Map for O(1) access and moves accessed nodes to the head in O(1)." },
+                { q: "In Disjoint Set Union (Union-Find), combining Union by Rank and Path Compression yields what amortized time per operation over m operations?", opts: ["O(log n)", "O(α(n)) — inverse Ackermann function", "O(√n)", "O(1) strictly without inverse Ackermann"], ans: 1, exp: "Tarjan proved that combining Union by Rank and Path Compression gives O(α(n)) amortized time, where α(n) ≤ 4 for all practical input sizes." },
+                { q: "Which algorithmic paradigm solves the 0/1 Knapsack problem with n items and integer capacity W in O(nW) time?", opts: ["Greedy by value-to-weight ratio", "Dynamic Programming", "Divide and Conquer", "Kruskal's Algorithm"], ans: 1, exp: "Greedy works for Fractional Knapsack, but 0/1 Knapsack requires Dynamic Programming over subproblems dp[i][w] due to discrete item choices." },
+                { q: "What is the auxiliary space complexity of standard recursive Merge Sort on an array of size n?", opts: ["O(1)", "O(n)", "O(log n)", "O(n²)"], ans: 1, exp: "Although recursion stack depth is O(log n), merging subarrays requires an auxiliary temporary buffer of size O(n)." },
+                { q: "Which graph traversal algorithm is guaranteed to find the shortest path in terms of edge count in an unweighted graph?", opts: ["Depth-First Search (DFS)", "Breadth-First Search (BFS)", "Prim's Algorithm", "Tarjan's SCC Algorithm"], ans: 1, exp: "BFS explores vertices in concentric layers of distance k from the source, guaranteeing the first visit to any node uses the minimum edges." },
+                { q: "What property must a binary tree satisfy to be a valid Binary Search Tree (BST)?", opts: ["Every node has two children", "All keys in the left subtree are strictly less than the node, and all keys in the right subtree are strictly greater", "The tree is always complete", "Parent nodes are smaller than all descendants"], ans: 1, exp: "The BST invariant applies globally to entire left and right subtrees, not merely immediate left/right children." },
+                { q: "What is the time complexity of searching for a pattern of length m inside a text of length n using the Knuth-Morris-Pratt (KMP) algorithm?", opts: ["O(n · m)", "O(n + m)", "O(n log m)", "O(m²)"], ans: 1, exp: "KMP precomputes the Longest Proper Prefix-Suffix (LPS) table in O(m) and scans the text without backtracking in O(n)." },
+                { q: "In a B-Tree of minimum degree t ≥ 2 storing n keys, what is the upper bound on the tree height h?", opts: ["O(n)", "O(log_t n)", "O(√n)", "O(t · n)"], ans: 1, exp: "High branching factor t keeps B-Trees extremely shallow (h ≤ log_t((n+1)/2)), minimizing disk I/O seeks in databases." },
+                { q: "Which algorithm finds a Minimum Spanning Tree (MST) by sorting all edges by weight and adding the smallest edge that does not form a cycle?", opts: ["Bellman-Ford Algorithm", "Kruskal's Algorithm", "Floyd-Warshall Algorithm", "Topological Sort"], ans: 1, exp: "Kruskal's algorithm greedily adds minimum-weight edges across disjoint components using Union-Find to reject cycle-forming edges." },
+                { q: "What is the worst-case time complexity of Floyd-Warshall for All-Pairs Shortest Paths on a graph with V vertices?", opts: ["O(V²)", "O(V³)", "O(V² log V)", "O(E log V)"], ans: 1, exp: "Floyd-Warshall runs three nested loops over V intermediate, source, and destination vertices, taking Θ(V³) time." },
+                { q: "When a hash table load factor α = n/m exceeds its threshold (e.g., 0.75), why must existing keys be rehashed rather than simply appending empty buckets?", opts: ["Pointers break otherwise", "Bucket indices depend on modulo table size (hash(k) mod m), so changing m invalidates old positions", "CPUs forbid resizing arrays", "Collisions disappear automatically"], ans: 1, exp: "Because slot placement depends on the new bucket count m', every existing key must be recomputed modulo m' so lookups can locate it." },
+                { q: "Which traversal of a Binary Search Tree visits all keys in ascending sorted order?", opts: ["Pre-order (Root, Left, Right)", "In-order (Left, Root, Right)", "Post-order (Left, Right, Root)", "Level-order (BFS)"], ans: 1, exp: "In-order traversal recursively visits the smaller left subtree, then the root, then the larger right subtree, producing sorted output." }
+            ]
+        },
+        {
+            id: "oop",
+            code: "CS-202",
+            titleEn: "Object-Oriented Design & Patterns",
+            titleAr: "البرمجة الكائنية وأنماط التصميم",
+            year: 2,
+            careerMatchEn: "Software Design & OOP Specialist",
+            careerMatchAr: "متخصص تصميم البرمجيات والهندسة النظيفة",
+            badgeColor: "neonPurple",
+            questions: [
+                { q: "Which SOLID principle states that objects of a superclass should be replaceable with objects of its subclasses without breaking program correctness?", opts: ["Single Responsibility Principle", "Liskov Substitution Principle", "Interface Segregation Principle", "Open-Closed Principle"], ans: 1, exp: "Liskov Substitution (LSP) requires subclasses to honor the behavioral contracts (preconditions/postconditions) of their base class." },
+                { q: "Which Gang of Four design pattern ensures a class has only one instance and provides a global point of access to it?", opts: ["Factory Method", "Singleton", "Adapter", "Decorator"], ans: 1, exp: "Singleton restricts instantiation to a single shared object, often synchronized with double-checked locking in multithreaded environments." },
+                { q: "What is the primary purpose of the Strategy design pattern?", opts: ["Convert one incompatible interface into another", "Encapsulate a family of interchangeable algorithms and make them swappable at runtime", "Clone complex objects without coupling to concrete classes", "Notify multiple subscribers when state changes"], ans: 1, exp: "Strategy decouples algorithm selection from client logic by injecting interchangeable strategy interfaces at runtime." },
+                { q: "In C++, why should a base class with virtual methods always declare a virtual destructor?", opts: ["To speed up stack allocation", "To ensure derived class destructors execute when deleting via a base-class pointer, preventing memory leaks", "To prevent inheritance", "To enable operator overloading"], ans: 1, exp: "Deleting a derived object through a base pointer without a virtual destructor invokes undefined behavior and skips derived resource cleanup." },
+                { q: "Which principle advises splitting fat interfaces into smaller, client-specific interfaces so classes are not forced to implement unused methods?", opts: ["Dependency Inversion Principle", "Interface Segregation Principle", "Liskov Substitution Principle", "Encapsulation Principle"], ans: 1, exp: "Interface Segregation (ISP) prevents bloated 'god interfaces' by tailoring cohesive contracts to specific consumers." },
+                { q: "How does the Decorator pattern differ from static inheritance?", opts: ["Decorator runs only at compile time", "Decorator wraps objects dynamically at runtime to stack additional responsibilities without subclass explosion", "Decorator deletes private fields", "Decorator requires multiple inheritance"], ans: 1, exp: "Decorators wrap a component implementing the same interface, allowing flexible runtime composition of behaviors (e.g., buffered + encrypted streams)." },
+                { q: "What is runtime polymorphism (dynamic dispatch) typically implemented with under the hood in compiled OOP languages like C++?", opts: ["Macro expansion", "Virtual Method Tables (vtable) and vptr pointers", "Garbage collection sweeps", "Static inline linking"], ans: 1, exp: "Each polymorphic class has a vtable of function pointers, and each object stores a hidden vptr resolved dynamically at call time." },
+                { q: "Which design pattern provides a simplified unified interface to a complex subsystem of multiple classes?", opts: ["Proxy", "Facade", "Flyweight", "Composite"], ans: 1, exp: "Facade shields clients from subsystem complexity by exposing a clean, high-level entry point." },
+                { q: "What does the Open-Closed Principle (OCP) state?", opts: ["Classes should have open public fields and closed methods", "Software entities should be open for extension, but closed for modification", "Files must close immediately after opening", "Constructors must remain private"], ans: 1, exp: "OCP encourages adding new behavior via new subclasses or plugins rather than repeatedly editing tested core code." },
+                { q: "In UML class diagrams, what distinguishes Composition (filled diamond) from Aggregation (hollow diamond)?", opts: ["Composition implies strong lifecycle ownership where parts cannot exist independently of the whole", "Aggregation implies inheritance", "Composition is only for interfaces", "There is no semantic difference"], ans: 0, exp: "In Composition (e.g., House and Room), destroying the parent container also destroys its owned child parts." },
+                { q: "Which pattern defines a one-to-many dependency so that when one object changes state, all its dependents are notified automatically?", opts: ["Builder", "Observer", "Command", "Memento"], ans: 1, exp: "Observer (Pub-Sub) decouples event publishers from reactive listeners." },
+                { q: "What problem does the Builder pattern solve?", opts: ["Converting XML to JSON", "Constructing complex objects step-by-step while avoiding telescoping constructors with numerous optional parameters", "Sharing immutable flyweight characters", "Synchronizing database locks"], ans: 1, exp: "Builder separates complex object construction from representation, yielding readable fluent initialization." },
+                { q: "What is 'Object Slicing' in C++?", opts: ["Dividing an array into chunks", "Assigning a derived-class object by value to a base-class variable, stripping away derived member attributes", "Garbage collecting unreferenced pointers", "Splitting a monolithic class into two files"], ans: 1, exp: "Passing or assigning a derived object by value copies only the base subobject; always pass polymorphic types by reference or pointer." },
+                { q: "Which pattern acts as a structural wrapper that translates the interface of an existing class into another interface expected by clients?", opts: ["Adapter", "State", "Iterator", "Template Method"], ans: 0, exp: "Adapter bridges incompatible interfaces (e.g., integrating a legacy third-party payment SDK into a modern interface)." },
+                { q: "What is Dependency Injection (DI)?", opts: ["Inheriting from a database driver", "Supplying a class's external dependencies from outside rather than instantiating them internally with 'new'", "Compiling libraries statically", "Using global static variables"], ans: 1, exp: "DI implements Dependency Inversion, making classes loosely coupled and trivial to test with mock dependencies." },
+                { q: "Which behavioral pattern encapsulates a request as a standalone object, enabling undo/redo stacks and queued execution?", opts: ["Bridge", "Command", "Prototype", "Visitor"], ans: 1, exp: "Command turns actions into first-class objects containing execute() and undo() methods." },
+                { q: "What is the key difference between an Abstract Class and an Interface in modern Java/C#?", opts: ["Abstract classes cannot have methods", "Abstract classes can maintain instance state (fields) and constructors, whereas interfaces define pure behavioral contracts", "Interfaces support multiple inheritance of state", "Abstract classes cannot be subclassed"], ans: 1, exp: "Classes can implement multiple interfaces, while an abstract class provides shared state and partial base implementation." },
+                { q: "What is the Law of Demeter (Principle of Least Knowledge)?", opts: ["Every class must have at most 10 methods", "An object should only talk to its immediate friends and avoid chained calls like a.getB().getC().doWork()", "All attributes must be protected", "Recursion is forbidden in OOP"], ans: 1, exp: "Avoiding deep navigation chains reduces coupling to internal structures of distant objects." },
+                { q: "Which pattern minimizes memory usage by sharing common immutable state across thousands of fine-grained objects (e.g., text editor glyphs)?", opts: ["Flyweight", "Mediator", "Chain of Responsibility", "Interpreter"], ans: 0, exp: "Flyweight separates intrinsic shared state from extrinsic context state to drastically reduce RAM footprint." },
+                { q: "Why does the 'Fragile Base Class' problem occur in deep inheritance hierarchies?", opts: ["Base classes lack constructors", "Seemingly safe internal changes in a parent class unintentionally break assumptions in derived subclasses", "Interfaces compile slowly", "Static methods cannot be overridden"], ans: 1, exp: "Tight white-box coupling between subclass and superclass internals makes base modifications risky—motivating Composition over Inheritance." }
+            ]
+        },
+        {
+            id: "os",
+            code: "CS-301",
+            titleEn: "Operating Systems & Concurrency",
+            titleAr: "نظم التشغيل والبرمجة المتزامنة",
+            year: 2,
+            careerMatchEn: "Systems & Concurrency Engineer",
+            careerMatchAr: "مهندس أنظمة وبرمجة متزامنة",
+            badgeColor: "neonGreen",
+            questions: [
+                { q: "Which CPU scheduling algorithm minimizes average waiting time for a fixed set of processes but can cause starvation of long jobs?", opts: ["Round Robin", "Shortest Remaining Time First (SRTF / SJF)", "First-Come, First-Served (FCFS)", "FIFO"], ans: 1, exp: "Preemptive Shortest Remaining Time First is provably optimal for average waiting time, though continuous short arrivals can starve long processes." },
+                { q: "What happens during a 'Context Switch' between two threads belonging to different processes?", opts: ["Only the instruction pointer changes", "The kernel saves CPU registers/PCB state and switches the virtual memory address space (page table base register), flushing TLB entries", "The hard drive formats swap space", "User mode switches to BIOS"], ans: 1, exp: "Cross-process context switches require changing CR3/page-table pointers, incurring TLB flush overhead unlike intra-process thread switches." },
+                { q: "What is 'Thrashing' in a virtual memory operating system?", opts: ["CPU overheating from overclocking", "A state where the system spends more time paging memory pages to/from disk than executing instructions because working sets exceed physical RAM", "Fragmentation of SSD blocks", "Killing zombie processes"], ans: 1, exp: "When total active working sets surpass physical frames, continuous page faults collapse CPU utilization." },
+                { q: "Which condition is NOT one of the four necessary conditions for a Deadlock?", opts: ["Mutual Exclusion", "Preemptive Resource Revocation", "Hold and Wait", "Circular Wait"], ans: 1, exp: "Deadlocks require NO preemption—resources cannot be forcibly taken away; enabling preemption actually prevents deadlocks." },
+                { q: "How does a Mutex differ fundamentally from a Counting Semaphore?", opts: ["Semaphores are faster than mutexes", "A Mutex enforces strict ownership (only the locking thread may unlock it), whereas a Semaphore is a signaling counter accessible by any thread", "Mutexes work only across networks", "Semaphores cannot block threads"], ans: 1, exp: "Mutex ownership prevents accidental unlocks by other threads and enables priority inheritance mechanisms." },
+                { q: "What is 'Priority Inversion' in real-time operating systems?", opts: ["A low-priority thread gets deleted", "A high-priority thread is blocked waiting on a lock held by a low-priority thread, which is preempted by a medium-priority thread", "All threads share equal priority", "The scheduler runs backwards"], ans: 1, exp: "Solved via Priority Inheritance Protocol, temporarily boosting the lock-holding low-priority thread to the high-priority waiter's level." },
+                { q: "What does the `fork()` system call return to the newly created child process in POSIX/Linux?", opts: ["The parent's PID", "0", "-1", "The child's own positive PID"], ans: 1, exp: "`fork()` returns 0 in the child process and returns the child's positive PID to the parent process (or -1 on failure)." },
+                { q: "How does Copy-on-Write (COW) optimize `fork()` performance in modern Unix kernels?", opts: ["It copies all RAM pages immediately", "Parent and child initially share read-only physical frames; a page is duplicated only when either process attempts to write to it", "It disables virtual memory", "It writes pages directly to SSD"], ans: 1, exp: "COW avoids wasteful memory copying, especially when `fork()` is immediately followed by `exec()`." },
+                { q: "What is a 'Zombie Process' in Unix/Linux?", opts: ["A process consuming 100% CPU in an infinite loop", "A terminated process whose exit status has not yet been reaped by its parent via `wait()`", "A background daemon without a terminal", "A process swapped out to disk"], ans: 1, exp: "The kernel keeps the zombie's minimal PCB entry until the parent reads its exit code via `wait()`/`waitpid()`." },
+                { q: "In paging systems, what causes 'Internal Fragmentation'?", opts: ["Unallocated holes between variable-sized segments", "Unused memory inside the final allocated fixed-size page frame of a process", "Corrupted page tables", "Disk sector bad blocks"], ans: 1, exp: "Because memory is allocated in fixed page granules (e.g., 4 KB), a process needing 4.1 KB wastes 3.9 KB inside its second page." },
+                { q: "What is the role of the Translation Lookaside Buffer (TLB)?", opts: ["Encrypt disk partitions", "Serve as a fast hardware associative cache translating virtual page numbers to physical frame numbers", "Schedule I/O interrupts", "Store BIOS firmware"], ans: 1, exp: "Without the TLB, every memory access would require multiple sequential RAM reads to walk multi-level page tables." },
+                { q: "Why must hardware provide atomic instructions like Compare-And-Swap (CAS) or Test-And-Set?", opts: ["To accelerate floating-point division", "To implement race-free locks and lock-free synchronization primitives on multi-core CPUs", "To compress kernel logs", "To bypass user permissions"], ans: 1, exp: "Software-only flags fail on modern out-of-order multi-core processors without hardware bus/cache-line atomicity." },
+                { q: "What is the difference between a User-Level Thread and a Kernel-Level Thread?", opts: ["User threads run in ring 0", "If a pure user-level thread makes a blocking system call, the entire process blocks because the OS kernel is unaware of user-space threads", "Kernel threads share no memory", "User threads cannot execute functions"], ans: 1, exp: "In Many-to-One user threading, the kernel sees only one schedulable entity, so one blocking syscall stalls all sibling user threads." },
+                { q: "Which page replacement algorithm suffers from Belady's Anomaly (increasing page frames can increase page faults)?", opts: ["Least Recently Used (LRU)", "First-In, First-Out (FIFO)", "Optimal (OPT)", "Clock / Second-Chance"], ans: 1, exp: "FIFO is not a stack algorithm, meaning larger frame sets do not necessarily contain subsets of smaller frame sets." },
+                { q: "What happens when a CPU executes a System Call instruction (e.g., `syscall` / `int 0x80`)?", opts: ["The CPU reboots", "Execution transitions from unprivileged User Mode (Ring 3) to privileged Kernel Mode (Ring 0) via an interrupt/trap vector", "Virtual memory is disabled", "All threads terminate"], ans: 1, exp: "Hardware switches privilege rings and jumps to trusted kernel handler routines to safely perform I/O or process management." },
+                { q: "In Banker's Algorithm for deadlock avoidance, what defines a 'Safe State'?", opts: ["Zero processes are running", "There exists at least one execution sequence allowing every process to acquire its maximum declared resources and finish", "CPU usage is below 50%", "All locks are unlocked"], ans: 1, exp: "Banker's Algorithm grants a resource request only if the resulting state preserves a safe completion sequence." },
+                { q: "Why do modern 64-bit operating systems use Multi-Level Page Tables instead of a single flat page table?", opts: ["Flat tables are too slow for 16-bit CPUs", "A flat 64-bit page table would require petabytes of contiguous RAM per process, whereas multi-level tables allocate entries lazily only for mapped regions", "Multi-level tables eliminate page faults", "Flat tables cannot store permissions"], ans: 1, exp: "Hierarchical page tables leave unmapped virtual address ranges unallocated, saving massive amounts of RAM." },
+                { q: "What is a 'Spinlock' and when is it preferable over a sleeping Mutex?", opts: ["A lock that spins hard disks; used for file I/O", "A busy-waiting lock preferable on multi-core systems when the critical section is extremely short (shorter than two context switches)", "A lock for single-core CPUs", "A lock that prevents memory allocation"], ans: 1, exp: "Spinning avoids expensive kernel sleep/wakeup context switches when lock hold times are only a few nanoseconds." },
+                { q: "What does an inode store in a Unix ext4 filesystem?", opts: ["The file's human-readable filename", "File metadata (permissions, size, timestamps, owner) and pointers to data blocks—excluding the filename", "Only the file's text content", "User login passwords"], ans: 1, exp: "Directory entries map filenames to inode numbers, enabling hard links where multiple filenames point to the exact same inode." },
+                { q: "What is a 'Race Condition'?", opts: ["Two processes competing for network bandwidth", "A concurrency bug where system correctness depends on the non-deterministic interleaving of threads accessing shared mutable state", "A benchmark test of CPU clock speed", "A deadlock with three threads"], ans: 1, exp: "Without proper synchronization, interleaved read-modify-write operations corrupt shared data unpredictably." }
+            ]
+        },
+        {
+            id: "db",
+            code: "CS-302",
+            titleEn: "Database Internals & SQL Optimization",
+            titleAr: "قواعد البيانات وتحسين استعلامات SQL",
+            year: 3,
+            careerMatchEn: "Backend & Distributed Systems Engineer",
+            careerMatchAr: "مهندس برمجيات خلفية وأنظمة موزعة",
+            badgeColor: "neonCyan",
+            questions: [
+                { q: "Which ACID property guarantees that once a transaction commits, its changes survive power loss or system crashes?", opts: ["Atomicity", "Consistency", "Isolation", "Durability"], ans: 3, exp: "Durability is typically enforced using Write-Ahead Logging (WAL) flushed to non-volatile storage before confirming commit." },
+                { q: "Why do relational databases overwhelmingly use B+ Trees instead of binary search trees or hash indexes for primary indexes?", opts: ["Hash indexes use too little RAM", "B+ Trees minimize disk block reads via high fan-out and link leaf nodes sequentially for fast range scans", "Binary trees cannot store integers", "B+ Trees forbid duplicate values"], ans: 1, exp: "Linked leaf pages allow O(log_B N + K) range queries (BETWEEN, >, ORDER BY), whereas hash indexes only support equality." },
+                { q: "What is the 'Phantom Read' concurrency anomaly?", opts: ["Reading uncommitted dirty data", "Re-executing a range query within the same transaction returns newly inserted or deleted rows committed by another transaction", "Two transactions overwrite each other's updates", "Database connection drops mid-query"], ans: 1, exp: "Phantom reads occur when new rows match a transaction's WHERE predicate between two reads; prevented by Serializable isolation or gap locks." },
+                { q: "A table is in Second Normal Form (2NF) and has no transitive functional dependencies where a non-key attribute determines another non-key attribute. Which normal form is satisfied?", opts: ["1NF", "Third Normal Form (3NF)", "4NF", "Unnormalized"], ans: 1, exp: "3NF requires 2NF plus every non-prime attribute depending directly (non-transitively) on candidate keys." },
+                { q: "Given composite index `INDEX(last_name, first_name, age)`, which query CANNOT effectively use the B+ Tree index for an index seek?", opts: ["WHERE last_name = 'Ali' AND first_name = 'Sara'", "WHERE first_name = 'Sara' AND age = 22", "WHERE last_name = 'Ali'", "WHERE last_name = 'Ali' ORDER BY first_name"], ans: 1, exp: "B+ Tree composite indexes follow the Leftmost Prefix Rule; skipping `last_name` prevents tree traversal from the root." },
+                { q: "How does Multi-Version Concurrency Control (MVCC) in PostgreSQL improve throughput?", opts: ["It locks the entire table on every SELECT", "Readers do not block writers and writers do not block readers because transactions read consistent historical row snapshots", "It disables transactions", "It stores all tables in CSV files"], ans: 1, exp: "MVCC maintains versioned tuples with transaction IDs (xmin/xmax), providing lock-free snapshot reads." },
+                { q: "What is a 'Covering Index' (Index-Only Scan)?", opts: ["An index on every column in the database", "An index that contains all columns needed by a query, allowing the engine to return results without fetching heap table pages", "A backup copy of the primary key", "An index that encrypts sensitive columns"], ans: 1, exp: "Satisfying SELECT and WHERE columns directly from index leaf entries eliminates random table heap lookups." },
+                { q: "What is the purpose of Write-Ahead Logging (WAL)?", opts: ["Cache frequent SELECT queries in RAM", "Append every state modification to a sequential log on disk before dirty data pages are flushed, ensuring atomic crash recovery", "Compress old backups", "Replicate tables to Excel"], ans: 1, exp: "Sequential WAL appends are vastly faster than random page writes and allow Redo/Undo recovery after crashes." },
+                { q: "What is the difference between `INNER JOIN` and `LEFT OUTER JOIN`?", opts: ["INNER JOIN is slower", "INNER JOIN returns only matching rows from both tables; LEFT JOIN returns all left-table rows with NULLs for unmatched right-table columns", "LEFT JOIN deletes unmatched rows", "They produce identical results"], ans: 1, exp: "LEFT OUTER JOIN preserves every row from the left relation regardless of whether a join predicate match exists on the right." },
+                { q: "When is denormalization intentionally applied in database design?", opts: ["Always in OLTP banking systems", "In read-heavy analytical/reporting workloads to eliminate expensive multi-table joins at the cost of controlled write redundancy", "To enforce foreign key constraints", "To reduce disk storage space"], ans: 1, exp: "Data warehouses (Star Schemas) denormalize dimensions to accelerate massive aggregation queries." },
+                { q: "Which SQL clause filters groups AFTER `GROUP BY` aggregation has been computed?", opts: ["WHERE", "HAVING", "ORDER BY", "DISTINCT"], ans: 1, exp: "WHERE filters individual rows prior to grouping, whereas HAVING filters aggregated groups (e.g., HAVING COUNT(*) > 5)." },
+                { q: "What causes a 'Deadlock' in a relational database?", opts: ["Running a slow SELECT query", "Transaction T1 holds a row lock needed by T2 while T2 holds a row lock needed by T1", "Exceeding max connections", "Dropping an unused index"], ans: 1, exp: "Database lock managers detect cycles in the wait-for graph and abort the younger victim transaction to break the deadlock." },
+                { q: "What does a Clustered Index determine in storage engines like InnoDB?", opts: ["The network IP of the replica", "The physical on-disk sort order of the actual table data rows", "The number of CPU cores used", "The JSON schema validation rules"], ans: 1, exp: "Because rows can only be physically ordered one way, a table can have at most one clustered index (usually the Primary Key)." },
+                { q: "Which isolation level prevents Dirty Reads and Non-Repeatable Reads, yet still allows Phantom Reads in standard ANSI SQL?", opts: ["Read Uncommitted", "Repeatable Read", "Read Committed", "Chaos Isolation"], ans: 1, exp: "ANSI Repeatable Read locks read rows until commit but does not lock index ranges against newly inserted phantoms." },
+                { q: "Why can adding too many indexes degrade database performance?", opts: ["SELECT queries become slower", "Every INSERT, UPDATE, and DELETE must update all associated B+ Tree indexes, increasing write amplification and storage overhead", "Indexes corrupt foreign keys", "Indexes disable transactions"], ans: 1, exp: "Indexes accelerate reads at the expense of extra I/O and tree rebalancing on every write operation." },
+                { q: "What is Horizontal Partitioning (Sharding)?", opts: ["Splitting columns of a table into two tables", "Distributing subsets of table rows across multiple independent database nodes based on a shard key", "Compressing log files", "Creating a read-only view"], ans: 1, exp: "Sharding scales write throughput and storage beyond a single machine's limits by partitioning rows across servers." },
+                { q: "What is SQL Injection and how is it definitively prevented?", opts: ["A memory leak in PostgreSQL; fixed by restarting", "Malicious SQL code injected via untrusted user input; prevented using Prepared Statements (Parameterized Queries)", "A slow join; fixed by adding indexes", "An SSL certificate error"], ans: 1, exp: "Parameterized queries separate SQL command structure from data values so input is never parsed as executable SQL." },
+                { q: "In query optimization, when does a Hash Join outperform a Nested Loop Join?", opts: ["When joining two tiny 10-row tables", "When joining two large unsorted tables on an equality condition without supporting indexes", "When performing inequality (<) joins", "When memory is zero"], ans: 1, exp: "Hash Join builds an in-memory hash table on the smaller relation in O(M) and probes it in O(N), beating O(N·M) nested loops." },
+                { q: "What is the role of `VACUUM` in PostgreSQL?", opts: ["Delete the entire database", "Reclaim storage occupied by dead tuples left behind by MVCC updates/deletes and prevent transaction ID wraparound", "Encrypt network packets", "Convert NoSQL to SQL"], ans: 1, exp: "Because MVCC marks old row versions dead rather than overwriting in place, VACUUM reclaims space for reuse." },
+                { q: "Which NoSQL data model is optimized for traversing deeply connected social graphs and multi-hop relationship queries?", opts: ["Key-Value Store (Redis)", "Graph Database (Neo4j)", "Column-Family Store (Cassandra)", "Document Store (MongoDB)"], ans: 1, exp: "Graph databases store direct adjacency pointers (index-free adjacency), traversing millions of hops per second without expensive SQL self-joins." }
+            ]
+        },
+        {
+            id: "netsec",
+            code: "CS-303",
+            titleEn: "Computer Networks & Cybersecurity",
+            titleAr: "شبكات الحاسب والأمن السيبراني",
+            year: 3,
+            careerMatchEn: "Cybersecurity Analyst & Pentester",
+            careerMatchAr: "محلل أمن سيبراني ومختبر اختراق",
+            badgeColor: "neonMagenta",
+            questions: [
+                { q: "Why does TCP use a Three-Way Handshake (SYN, SYN-ACK, ACK) before transmitting application data?", opts: ["To encrypt payloads with AES", "To synchronize initial sequence numbers in both directions and confirm bidirectional reachability", "To compress HTTP headers", "To resolve domain names to IP addresses"], ans: 1, exp: "Both peers must agree on starting sequence numbers so lost or out-of-order segments can be reliably tracked and acknowledged." },
+                { q: "How does TCP Congestion Control respond when a packet timeout occurs?", opts: ["Doubles the congestion window (cwnd)", "Sets ssthresh to cwnd/2, resets cwnd to 1 MSS, and re-enters Slow Start", "Switches automatically to UDP", "Ignores the packet loss"], ans: 1, exp: "A timeout signals severe network congestion, triggering exponential backoff and restarting Slow Start from 1 MSS." },
+                { q: "Which protocol translates human-readable domain names (e.g., uec.edu) into IP addresses, primarily over UDP port 53?", opts: ["DHCP", "DNS", "ARP", "ICMP"], ans: 1, exp: "DNS uses lightweight UDP port 53 for fast request-response resolution (falling back to TCP for large responses/zone transfers)." },
+                { q: "What is the function of the Address Resolution Protocol (ARP)?", opts: ["Map domain names to IPv6 addresses", "Resolve a known local-network IPv4 address to its physical Layer-2 MAC address", "Route packets across autonomous systems", "Assign dynamic IP leases"], ans: 1, exp: "ARP broadcasts on the local LAN segment to discover the Ethernet MAC address corresponding to a target IPv4 address." },
+                { q: "Why is asymmetric cryptography (RSA/ECC) combined with symmetric cryptography (AES-GCM) in TLS?", opts: ["AES cannot encrypt long messages", "Asymmetric crypto safely exchanges session keys without a pre-shared secret, while symmetric crypto encrypts bulk traffic orders of magnitude faster", "RSA is faster than AES", "Symmetric keys are public"], ans: 1, exp: "Hybrid encryption leverages asymmetric key agreement (ECDHE) for security and symmetric AES for high-speed throughput." },
+                { q: "What security property does 'Perfect Forward Secrecy' (PFS) guarantee in TLS?", opts: ["Servers never need certificates", "Compromising a server's long-term private key in the future cannot decrypt previously recorded TLS traffic", "Passwords are stored in plaintext", "Firewalls cannot inspect packet headers"], ans: 1, exp: "Ephemeral Diffie-Hellman (ECDHE) generates unique session keys discarded after each session, protecting past traffic." },
+                { q: "Which password storage scheme is best practice for defending against GPU brute-force and rainbow table attacks?", opts: ["Unsalted SHA-256", "Salted Argon2id or bcrypt with high work factor", "Base64 encoding", "AES encryption with hardcoded key"], ans: 1, exp: "Memory-hard salted hashes like Argon2id defeat precomputed rainbow tables and resist parallel GPU cracking." },
+                { q: "How does Cross-Site Request Forgery (CSRF) exploit web browsers?", opts: ["Injects malicious SQL into login forms", "Tricks a victim's browser into sending authenticated requests (with automatic session cookies) to a trusted site", "Overflows stack buffers in C", "Sniffs Wi-Fi packets"], ans: 1, exp: "Browsers automatically attach cookies per origin; SameSite=Strict/Lax cookies and unpredictable CSRF tokens block forged cross-site requests." },
+                { q: "What is the primary goal of a Content Security Policy (CSP) HTTP header?", opts: ["Accelerate DNS caching", "Mitigate Cross-Site Scripting (XSS) by restricting trusted sources for executable scripts, styles, and frames", "Enable HTTP/3 compression", "Block ping ICMP packets"], ans: 1, exp: "CSP prevents browsers from executing unauthorized inline or third-party scripts even if an injection bug exists." },
+                { q: "Why does HTTP/3 run over QUIC (UDP) instead of TCP?", opts: ["TCP does not support encryption", "Eliminates TCP head-of-line blocking across multiplexed streams and achieves 0-RTT/1-RTT connection setup", "UDP guarantees packet order natively", "Routers block TCP port 443"], ans: 1, exp: "In HTTP/2 over TCP, one lost packet stalls all multiplexed streams; QUIC handles independent stream recovery over UDP." },
+                { q: "What is a Man-in-the-Middle (MitM) attack, and how do X.509 certificates prevent it?", opts: ["Flooding a server with SYN packets", "An attacker intercepts traffic; trusted Certificate Authorities cryptographically sign server public keys so browsers detect forged identities", "Guessing weak passwords", "Deleting database backups"], ans: 1, exp: "Browsers verify the digital signature chain up to a trusted Root CA, rejecting impostor certificates." },
+                { q: "In subnetting, how many usable host IPv4 addresses exist in a `/26` subnet?", opts: ["64", "62", "30", "126"], ans: 1, exp: "A /26 leaves 32 - 26 = 6 host bits (2^6 = 64 addresses), minus 2 reserved for network and broadcast addresses = 62 usable hosts." },
+                { q: "What is Server-Side Request Forgery (SSRF)?", opts: ["An attacker tricks a backend server into making unintended HTTP/network requests to internal infrastructure or cloud metadata endpoints", "A client fails to verify SSL", "A user forgets their password", "DNS cache poisoning"], ans: 0, exp: "SSRF allows attackers to pivot through a vulnerable server to reach internal firewalls or AWS IMDSv1 metadata (169.254.169.254)." },
+                { q: "What distinguishes a Stateful Firewall from a Stateless Packet Filter?", opts: ["Stateless firewalls inspect application JSON", "Stateful firewalls track active connection states (SYN/ESTABLISHED) in a state table rather than evaluating packets in isolation", "Stateless firewalls require encryption", "There is no difference"], ans: 1, exp: "Stateful inspection knows whether an incoming packet belongs to a legitimate outbound-initiated TCP/UDP session." },
+                { q: "What is a SYN Flood DDoS attack?", opts: ["Sending malformed SQL queries", "Exhausting a server's half-open connection backlog by sending massive spoofed TCP SYN packets without completing the final ACK", "Encrypting files for ransom", "Poisoning ARP caches"], ans: 1, exp: "Mitigated using SYN cookies, which encode connection state cryptographically into the initial sequence number without allocating memory." },
+                { q: "Which OSI layer is responsible for end-to-end process-to-process communication and port numbers (TCP/UDP)?", opts: ["Layer 2 (Data Link)", "Layer 4 (Transport)", "Layer 3 (Network)", "Layer 7 (Application)"], ans: 1, exp: "Layer 4 (Transport) multiplexes application sockets using 16-bit source and destination port numbers." },
+                { q: "What is the Principle of Least Privilege in cybersecurity?", opts: ["Give all engineers admin access for speed", "Grant every user, process, and service only the minimum permissions strictly required to perform its task", "Disable firewall logging", "Use shared root accounts"], ans: 1, exp: "Least privilege limits the blast radius if any single account or microservice is compromised." },
+                { q: "What cryptographic property ensures that modifying even a single bit in a message produces a completely unpredictable new hash digest?", opts: ["Collision Resistance", "Avalanche Effect", "Symmetric Keying", "Compression Ratio"], ans: 1, exp: "The Avalanche Effect ensures tiny input changes flip roughly 50% of output bits, preventing statistical analysis." },
+                { q: "Why should sensitive session identifiers NEVER be passed in URL query parameters (`?token=...`)?", opts: ["URLs cannot contain letters", "URLs leak in browser history, server access logs, proxy caches, and HTTP Referer headers", "Browsers block query parameters", "Tokens expire in 1 second"], ans: 1, exp: "Always transmit tokens via HttpOnly Secure cookies or the HTTP `Authorization: Bearer` header." },
+                { q: "What is the role of NAT (Network Address Translation) in IPv4 networks?", opts: ["Encrypt Wi-Fi signals", "Map multiple private LAN IP addresses onto a shared public IPv4 address using port translation (PAT)", "Speed up fiber optics", "Replace DNS servers"], ans: 1, exp: "NAT conserved scarce IPv4 addresses by allowing entire private subnets (192.168.x.x / 10.x.x.x) to share public IPs." }
+            ]
+        },
+        {
+            id: "web",
+            code: "CS-304",
+            titleEn: "Web Engineering & Modern Architecture",
+            titleAr: "هندسة الويب والتطبيقات الحديثة",
+            year: 3,
+            careerMatchEn: "Frontend & Full-Stack Web Architect",
+            careerMatchAr: "مطور واجهات وتطبيقات ويب",
+            badgeColor: "neonPurple",
+            questions: [
+                { q: "What triggers a browser CORS 'Preflight' `OPTIONS` request?", opts: ["Every HTTP GET request", "Cross-origin requests using non-simple methods (PUT/DELETE) or custom headers like `Authorization`", "Loading images from a CDN", "Submitting an HTML form"], ans: 1, exp: "Browsers send an `OPTIONS` preflight to verify the target server explicitly permits the cross-origin method and headers via `Access-Control-Allow-*`." },
+                { q: "Why should JWT authentication tokens in web apps be stored in `HttpOnly; Secure; SameSite=Strict` cookies instead of `localStorage`?", opts: ["localStorage only holds 10 bytes", "JavaScript cannot read `HttpOnly` cookies, protecting tokens from theft if an XSS vulnerability occurs", "Cookies never expire", "localStorage is cleared on refresh"], ans: 1, exp: "Any XSS script can exfiltrate `localStorage`, whereas `HttpOnly` cookies remain inaccessible to `document.cookie`." },
+                { q: "In JavaScript, what is logged by: `console.log(1); setTimeout(() => console.log(2), 0); Promise.resolve().then(() => console.log(3)); console.log(4);`?", opts: ["1, 2, 3, 4", "1, 4, 3, 2", "1, 3, 4, 2", "1, 4, 2, 3"], ans: 1, exp: "Synchronous logs (1, 4) run first; the Microtask queue (Promise -> 3) drains before the Macrotask queue (setTimeout -> 2)." },
+                { q: "What is the primary advantage of GraphQL over traditional REST APIs?", opts: ["GraphQL eliminates databases", "Clients query exact nested fields in a single round-trip, avoiding over-fetching and under-fetching", "GraphQL requires zero authentication", "GraphQL caches automatically via browser URLs"], ans: 1, exp: "GraphQL lets clients specify exact response shapes, preventing bloated payloads or multiple waterfall REST calls." },
+                { q: "What does HTTP status code `429 Too Many Requests` indicate?", opts: ["Payload exceeds 10 GB", "The client has exceeded the API's rate-limiting quota", "Database table not found", "SSL handshake failed"], ans: 1, exp: "APIs return 429 (often with a `Retry-After` header) to protect against abuse and brute-force spikes." },
+                { q: "How does Server-Side Rendering (SSR) improve initial page load and SEO compared to pure Client-Side Rendering (CSR)?", opts: ["SSR removes all JavaScript", "The server sends pre-rendered HTML immediately so users and search crawlers see content before JS hydration completes", "SSR runs entirely offline", "CSR cannot call APIs"], ans: 1, exp: "SSR improves First Contentful Paint (FCP) and ensures search engine bots index complete markup immediately." },
+                { q: "What is 'Debouncing' in frontend event handling?", opts: ["Running a function on every pixel scrolled", "Delaying function execution until a specified pause has elapsed since the last event (e.g., search autocomplete input)", "Canceling all network requests", "Encrypting DOM nodes"], ans: 1, exp: "Debouncing prevents firing an API search query on every single keystroke, saving bandwidth and backend load." },
+                { q: "Which HTTP caching directive instructs browsers and CDNs to revalidate stale cached responses with the origin server using `ETag` before reusing them?", opts: ["Cache-Control: no-store", "Cache-Control: no-cache", "Cache-Control: public, immutable", "Pragma: delete"], ans: 1, exp: "Despite its name, `no-cache` allows caching but mandates revalidation (`If-None-Match`), returning `304 Not Modified` if unchanged." },
+                { q: "What makes an HTTP method 'Idempotent'?", opts: ["It always returns JSON", "Making multiple identical requests produces the exact same server state as making a single request (e.g., GET, PUT, DELETE)", "It requires admin tokens", "It executes in O(1) time"], ans: 1, exp: "Idempotency allows clients to safely retry timed-out `PUT` or `DELETE` requests without creating duplicate side effects." },
+                { q: "How do WebSockets differ from standard HTTP/1.1 request-response communication?", opts: ["WebSockets use UDP packets", "WebSockets upgrade an HTTP connection into a persistent, full-duplex bidirectional TCP channel for low-latency real-time push", "WebSockets cannot use TLS", "WebSockets close after every message"], ans: 1, exp: "Full-duplex framing lets servers push updates instantly without polling overhead." },
+                { q: "What is the Virtual DOM reconciliation process in React?", opts: ["Compiling JSX directly to assembly", "Diffing a lightweight in-memory UI tree against the previous snapshot to batch minimal real DOM mutations", "Storing HTML in IndexedDB", "Bypassing CSS layout"], ans: 1, exp: "Direct DOM layout reflows are expensive; reconciliation computes minimal targeted updates." },
+                { q: "What does the `async` attribute on a `<script src='app.js' async>` tag do?", opts: ["Blocks HTML parsing immediately", "Downloads the script in parallel with HTML parsing and executes it immediately upon download, pausing parsing", "Waits until DOMContentLoaded", "Runs the script in a Web Worker"], ans: 1, exp: "Unlike `defer` (which preserves order and runs after HTML parsing), `async` executes immediately once fetched." },
+                { q: "Why are Web Workers used in browser applications?", opts: ["To access `document.getElementById` faster", "To run CPU-intensive computations (parsing, crypto, image processing) on a background OS thread without freezing the UI main thread", "To store cookies", "To replace CSS animations"], ans: 1, exp: "JavaScript's main thread handles UI rendering; offloading heavy math to Web Workers prevents 60fps frame drops." },
+                { q: "What is Semantic HTML and why does it matter?", opts: ["Using `<div>` for every element", "Using meaningful tags (`<nav>`, `<main>`, `<article>`, `<button>`) so screen readers and search engines understand document structure", "Minifying HTML whitespace", "Writing inline CSS"], ans: 1, exp: "Semantic elements provide built-in keyboard navigation, ARIA roles, and SEO structure." },
+                { q: "What is a Reverse Proxy (e.g., Nginx) typically placed in front of web application servers for?", opts: ["Writing React components", "TLS termination, load balancing, static asset caching, compression, and hiding internal backend topology", "Compiling TypeScript", "Storing relational tables"], ans: 1, exp: "Reverse proxies offload SSL/compression overhead and distribute traffic cleanly across backend instances." },
+                { q: "What is 'DOM Clobbering' or XSS via `innerHTML`?", opts: ["CSS grid overflow", "Assigning unsanitized user strings to `element.innerHTML`, allowing injected `<img onerror=...>` scripts to execute", "Slow image decoding", "Memory leak in closures"], ans: 1, exp: "Always use `textContent` for plain text or sanitize HTML with DOMPurify before inserting markup." },
+                { q: "In RESTful API design, which status code should be returned when a `POST` request successfully creates a new resource?", opts: ["200 OK", "201 Created (with Location header)", "204 No Content", "302 Found"], ans: 1, exp: "201 Created explicitly signals new resource creation alongside a `Location` URI pointing to the created entity." },
+                { q: "What is 'Tree Shaking' in modern JavaScript bundlers (Vite / Webpack)?", opts: ["Sorting binary trees", "Static dead-code elimination that strips unused ES module exports from the final production bundle", "Compressing PNG images", "Formatting JSON"], ans: 1, exp: "ES6 static `import`/`export` syntax enables bundlers to eliminate unreachable library code." },
+                { q: "What is Cumulative Layout Shift (CLS) in Core Web Vitals?", opts: ["Server response latency", "Visual instability measured when visible page elements unexpectedly shift position while asynchronous ads or images load", "Total JavaScript bundle size", "Time to first byte"], ans: 1, exp: "Reserving explicit `width`/`height` or aspect-ratio boxes prevents jarring layout jumps." },
+                { q: "How does a Content Delivery Network (CDN) reduce global user latency?", opts: ["By upgrading user Wi-Fi routers", "By caching static and edge-computed assets on geographically distributed PoP servers physically close to end users", "By compressing SQL databases", "By disabling HTTPS"], ans: 1, exp: "Serving content from a nearby edge node avoids long cross-continental round-trip delays." }
+            ]
+        },
+        {
+            id: "aiml",
+            code: "CS-401",
+            titleEn: "Artificial Intelligence & Machine Learning",
+            titleAr: "الذكاء الاصطناعي وتعلم الآلة",
+            year: 4,
+            careerMatchEn: "AI & Machine Learning Engineer",
+            careerMatchAr: "مهندس ذكاء اصطناعي وتعلم آلة",
+            badgeColor: "neonMagenta",
+            questions: [
+                { q: "What problem does the 'Vanishing Gradient' cause when training deep neural networks with sigmoid activations?", opts: ["Weights grow to infinity", "Gradients shrink exponentially during backpropagation, preventing early layers from learning", "Training accuracy hits 100% in 1 epoch", "GPU memory becomes zero"], ans: 1, exp: "Sigmoid derivatives max out at 0.25; multiplying many small fractions drives early-layer gradients near zero—solved by ReLU and residual connections." },
+                { q: "In the Bias-Variance Tradeoff, what characterizes a model suffering from High Variance?", opts: ["Underfits both training and test sets", "Achieves near-zero training error by memorizing noise, but generalizes poorly with high validation error (Overfitting)", "Trains too slowly", "Has too few parameters"], ans: 1, exp: "High variance models overfit training peculiarities; mitigated with regularization (L2/Dropout), more data, or simpler architectures." },
+                { q: "Why does the Transformer architecture use Scaled Dot-Product Attention (`QK^T / √d_k`)?", opts: ["To sort tokens alphabetically", "Dividing by √d_k prevents large dot-product magnitudes from pushing softmax into regions with near-zero gradients", "To eliminate matrix multiplication", "To reduce vocabulary size"], ans: 1, exp: "Without scaling by √d_k, variance grows linearly with dimension d_k, saturating softmax gradients." },
+                { q: "What is the role of Residual (Skip) Connections in ResNets and Transformers?", opts: ["Delete intermediate layers", "Provide an unimpeded identity gradient highway (`y = F(x) + x`), enabling stable training of very deep networks", "Reduce batch size to 1", "Convert images to text"], ans: 1, exp: "Skip connections ensure gradients flow directly backward without attenuation across dozens or hundreds of layers." },
+                { q: "When training a multi-class classifier with Cross-Entropy Loss, why is Softmax applied to final logits?", opts: ["To make weights negative", "To normalize raw unnormalized logits into a valid probability distribution summing to 1", "To perform dimensionality reduction", "To prevent overfitting"], ans: 1, exp: "Softmax exponentiates logits and divides by their sum, yielding differentiable class probabilities." },
+                { q: "How does L1 Regularization (Lasso) differ from L2 Regularization (Ridge)?", opts: ["L1 increases model complexity", "L1 adds penalty λ∑|w_i| driving irrelevant weights to exact zero (feature selection), whereas L2 shrinks weights smoothly toward zero", "L2 works only on images", "They are identical"], ans: 1, exp: "L1's diamond constraint boundary promotes sparse parameter vectors." },
+                { q: "What is 'Data Leakage' in a machine learning pipeline?", opts: ["Losing hard drive files", "Information from outside the training dataset (such as test-set statistics or future target features) inadvertently leaking into training, inflating validation scores", "GPU VRAM overflow", "Slow batch loading"], ans: 1, exp: "Fit all scalers, imputers, and encoders strictly on training folds before transforming validation/test sets." },
+                { q: "In Gradient Descent, what happens if the learning rate η is set orders of magnitude too high?", opts: ["Convergence becomes guaranteed", "Parameter updates overshoot the minimum, causing loss to oscillate wildly or diverge to NaN", "Training stops immediately", "Batch size doubles"], ans: 1, exp: "Excessive step sizes bounce across loss valleys instead of descending toward local minima." },
+                { q: "How does Dropout prevent overfitting during neural network training?", opts: ["Deletes training rows permanently", "Randomly zeroes a fraction p of neuron activations each forward pass, forcing redundant distributed representations", "Reduces learning rate to zero", "Freezes all weights"], ans: 1, exp: "Dropout acts like training an exponential ensemble of thinned sub-networks; disabled at inference time." },
+                { q: "What is the key difference between Bagging (e.g., Random Forest) and Boosting (e.g., XGBoost)?", opts: ["Bagging trains sequentially; Boosting trains independently", "Bagging trains independent models on bootstrap samples in parallel to reduce variance; Boosting trains weak learners sequentially to correct prior residual errors", "Boosting cannot handle tabular data", "Random Forests use neural networks"], ans: 1, exp: "Bagging averages low-bias/high-variance trees, whereas Boosting iteratively reduces bias." },
+                { q: "In A* informed heuristic search, what property must the heuristic `h(n)` satisfy to guarantee finding an optimal shortest path?", opts: ["h(n) must overestimate actual cost", "Admissibility: h(n) must never overestimate the true minimum cost to reach the goal", "h(n) must always equal zero", "h(n) must be negative"], ans: 1, exp: "An admissible (and consistent) heuristic guarantees A* never prunes the true optimal path." },
+                { q: "What does Principal Component Analysis (PCA) compute?", opts: ["Decision tree split thresholds", "Orthogonal eigenvectors of the data covariance matrix ordered by maximum explained variance", "K-Means cluster centroids", "Neural network gradients"], ans: 1, exp: "PCA projects high-dimensional correlated features onto top principal orthogonal axes." },
+                { q: "Why is Batch Normalization or Layer Normalization critical in modern deep learning?", opts: ["It replaces activation functions", "It stabilizes activation distributions across layers, smoothing the optimization landscape and permitting higher learning rates", "It compresses datasets to ZIP", "It eliminates labels"], ans: 1, exp: "LayerNorm is standard in Transformers because it normalizes across features independently of batch size." },
+                { q: "In Information Retrieval and RAG pipelines, why is Cosine Similarity preferred over Euclidean Distance for comparing text embeddings?", opts: ["Cosine similarity ignores direction", "Cosine similarity measures semantic angular orientation independent of vector magnitude/document length", "Euclidean distance works only in 2D", "Cosine similarity is O(1)"], ans: 1, exp: "Two documents on the same topic have small angle (cosine ≈ 1) even if one document is much longer." },
+                { q: "What is the 'Exploration vs. Exploitation' dilemma in Reinforcement Learning?", opts: ["Choosing between CPU and GPU", "Balancing taking known high-reward actions (exploitation) versus trying uncertain actions to discover potentially higher rewards (exploration)", "Splitting train and test sets", "Pruning decision trees"], ans: 1, exp: "Policies like ε-greedy or UCB balance short-term reward maximization with long-term state discovery." },
+                { q: "What does an ROC-AUC score of 0.50 signify for a binary classifier?", opts: ["Perfect classification", "No discriminative ability—equivalent to random guessing", "50% precision", "Zero false positives"], ans: 1, exp: "An ROC curve lying along the diagonal yields Area Under Curve = 0.50 (random chance)." },
+                { q: "How does LoRA (Low-Rank Adaptation) enable efficient fine-tuning of multi-billion-parameter LLMs?", opts: ["Deletes 90% of layers", "Freezes pretrained weights and injects tiny trainable rank-decomposition matrices (A·B), cutting trainable parameters by >99%", "Trains only on CPU", "Removes attention heads"], ans: 1, exp: "LoRA dramatically lowers GPU VRAM requirements while preserving base model capabilities." },
+                { q: "In Convolutional Neural Networks (CNNs), what is 'Weight Sharing'?", opts: ["All layers share one bias", "The same convolutional filter kernel slides across all spatial locations of an image, achieving translation equivariance with far fewer parameters", "Sharing weights across different datasets", "Using integer weights"], ans: 1, exp: "Spatial weight sharing enables CNNs to detect edges/textures anywhere in an image efficiently." },
+                { q: "What is 'Catastrophic Forgetting' when continually fine-tuning a neural network on new tasks?", opts: ["The model deletes its weights file", "Updating weights exclusively on new task data overwrites representations needed for previously learned tasks", "Overfitting to validation data", "Gradient underflow"], ans: 1, exp: "Mitigated via replay buffers, regularization (EWC), or parameter-efficient adapters." },
+                { q: "Why must a dataset be split into Training, Validation, and Test sets rather than just Training and Test?", opts: ["To make datasets smaller", "The Validation set tunes hyperparameters and architecture choices without leaking test-set bias into the final unbiased evaluation", "Test sets are used for gradient descent", "Validation sets require no labels"], ans: 1, exp: "Using the test set repeatedly for model selection invalidates its role as an unseen generalization benchmark." }
+            ]
+        },
+        {
+            id: "dist",
+            code: "CS-402",
+            titleEn: "Distributed Systems & Cloud Architecture",
+            titleAr: "الأنظمة الموزعة والحوسبة السحابية",
+            year: 4,
+            careerMatchEn: "Cloud & DevOps Infrastructure Engineer",
+            careerMatchAr: "مهندس حوسبة سحابية و DevOps",
+            badgeColor: "neonGreen",
+            questions: [
+                { q: "According to the CAP Theorem, during a network partition (P) between distributed database nodes, what trade-off must a system make?", opts: ["Latency vs. Bandwidth", "Consistency (linearizable reads) vs. Availability (every non-failing node returns a response)", "CPU vs. RAM", "Encryption vs. Compression"], ans: 1, exp: "Because network partitions are unavoidable in distributed systems, architects must choose CP (reject/block stale reads) or AP (serve potentially stale data)." },
+                { q: "Why are physical wall-clock timestamps (`System.currentTimeMillis()`) unreliable for ordering events across distributed servers?", opts: ["Clocks only count seconds", "NTP clock skew and leaps cause clocks on different machines to drift apart, violating causality", "CPUs lack quartz oscillators", "JSON cannot serialize dates"], ans: 1, exp: "Distributed systems use Lamport Logical Clocks or Vector Clocks to capture causal 'happens-before' ordering." },
+                { q: "In the Raft consensus algorithm, what role does a 'Quorum' (majority `(N/2) + 1`) play?", opts: ["Compresses log entries", "Ensures any two quorums overlap by at least one node, guaranteeing at most one leader per term and durable committed logs", "Encrypts RPC traffic", "Balances HTTP requests"], ans: 1, exp: "Majority intersection prevents split-brain dual leaders during network partitions." },
+                { q: "How does Consistent Hashing improve horizontal scaling in distributed caches (e.g., Redis Cluster / Dynamo)?", opts: ["Hashes keys with SHA-512", "Maps both nodes and keys onto a circular ring so adding or removing a node remaps only K/N keys on average instead of rehashing everything", "Stores all keys on node 0", "Eliminates network hops"], ans: 1, exp: "Consistent hashing (with virtual nodes) avoids catastrophic cache misses when cluster size changes." },
+                { q: "What is the 'Circuit Breaker' pattern in microservice architecture?", opts: ["Turning off server power supplies", "Wrapping remote calls so repeated failures trip the circuit open, failing fast immediately to prevent cascading thread exhaustion", "Encrypting gRPC payloads", "Auto-scaling Kubernetes pods"], ans: 1, exp: "Failing fast gives struggling downstream services time to recover instead of piling up blocked threads." },
+                { q: "Why is idempotency essential in distributed message queues (e.g., Kafka / RabbitMQ) providing 'At-Least-Once' delivery?", opts: ["Messages arrive encrypted", "Network retries can deliver duplicate messages, so consumers must deduplicate via idempotency keys to avoid double-charging users", "Queues drop 50% of messages", "Consumers run single-threaded"], ans: 1, exp: "At-least-once guarantees no message loss but permits duplicates; idempotent consumers ensure exact business outcomes." },
+                { q: "In Kubernetes, what is the difference between a `Deployment` and a `StatefulSet`?", opts: ["Deployments run VMs; StatefulSets run containers", "Deployments manage stateless interchangeable pods, whereas StatefulSets provide stable network identities and persistent per-pod storage volumes", "StatefulSets cannot scale", "Deployments run only once"], ans: 1, exp: "Databases and message brokers require StatefulSets to preserve sticky pod hostnames and PersistentVolumeClaims." },
+                { q: "What problem does Distributed Tracing (OpenTelemetry / Jaeger) solve in microservices?", opts: ["Compiles Dockerfiles", "Propagates a unique `trace_id` across service boundaries to visualize end-to-end request latency and pinpoint failing spans", "Replaces unit tests", "Manages DNS records"], ans: 1, exp: "A single user click may traverse 15 microservices; distributed tracing reconstructs the complete causal call tree." },
+                { q: "What is 'Split-Brain' in a high-availability cluster?", opts: ["A CPU dual-core bug", "A partition causes two isolated sub-clusters to each elect themselves primary leader and accept conflicting writes simultaneously", "Splitting logs into two files", "Running two containers on one port"], ans: 1, exp: "Prevented using strict quorum rules, fencing tokens, and STONITH mechanisms." },
+                { q: "How does Content-Addressable Storage in Docker image layers optimize builds and pulls?", opts: ["Images are stored as plain text", "Each filesystem layer is identified by its cryptographic SHA-256 digest, enabling shared immutable layer caching across images", "Docker disables compression", "Every container copies the host kernel"], ans: 1, exp: "Unchanged base OS and dependency layers are cached and reused instantaneously across builds." },
+                { q: "What is the 'Saga Pattern' in distributed microservices?", opts: ["A single distributed 2PC lock across 10 databases", "Managing cross-service business transactions as a sequence of local transactions paired with compensating rollback actions on failure", "A load-balancing algorithm", "A log rotation policy"], ans: 1, exp: "Sagas avoid long-lived blocking Two-Phase Commit (2PC) locks across independent microservice databases." },
+                { q: "What does 'Infrastructure as Code' (IaC) with Terraform provide?", opts: ["Manual GUI server clicking", "Declarative, version-controlled infrastructure definitions with execution plans (`terraform plan`) and drift detection", "Automatic C++ compilation", "Browser CSS styling"], ans: 1, exp: "IaC makes cloud provisioning repeatable, peer-reviewable, and immune to manual configuration drift." },
+                { q: "In Kubernetes networking, what is the role of a `Service` resource?", opts: ["Store container images", "Provide a stable virtual ClusterIP and DNS name that load-balances traffic across dynamic ephemeral Pod IPs", "Monitor CPU temperature", "Encrypt persistent disks"], ans: 1, exp: "Because Pods die and receive new IPs constantly, a Service decouples clients via label selectors." },
+                { q: "What is 'Eventual Consistency'?", opts: ["Reads always return errors", "If no new updates occur, all distributed replicas will asynchronously converge to the identical latest value over time", "Writes are synchronous across all continents", "Data expires every minute"], ans: 1, exp: "Prioritizes ultra-low latency and high availability for globally replicated systems (e.g., DNS, Dynamo-style stores)." },
+                { q: "Why use an API Gateway in front of microservices?", opts: ["To store binary blobs", "Centralize cross-cutting concerns—authentication, rate limiting, SSL termination, and request routing—at a single entry point", "To replace databases", "To compile frontend code"], ans: 1, exp: "Prevents duplicating auth and throttling boilerplate inside every individual microservice." },
+                { q: "What is 'Backpressure' in reactive streaming pipelines?", opts: ["Overclocking network cards", "A flow-control mechanism where a slower downstream consumer signals an upstream producer to slow emission rates rather than crashing from OOM", "Compressing HTTP responses", "Dropping database indexes"], ans: 1, exp: "Backpressure prevents unbounded queue growth when ingestion outpaces processing." },
+                { q: "What is the 'Thundering Herd' (Cache Stampede) problem?", opts: ["Too many servers booting simultaneously", "A popular cached key expires and thousands of concurrent requests miss the cache at once, hammering the origin database", "A DDoS SYN flood", "Disk RAID failure"], ans: 1, exp: "Mitigated with request coalescing (singleflight locks), jittered TTLs, and background stale-while-revalidate refresh." },
+                { q: "How does gRPC outperform traditional REST/JSON for internal microservice communication?", opts: ["gRPC uses XML", "gRPC uses compact binary Protocol Buffers serialization over multiplexed HTTP/2 streams with strict `.proto` contracts", "gRPC skips TCP", "gRPC requires no serialization"], ans: 1, exp: "Binary Protobuf payloads are smaller and parse significantly faster than text JSON." },
+                { q: "What is 'Chaos Engineering' (e.g., Chaos Monkey)?", opts: ["Deleting production backups", "Proactively injecting controlled faults (pod kills, network latency) in staging/production to verify system resilience and automated recovery", "Writing undocumented code", "Disabling monitoring alerts"], ans: 1, exp: "Exposes hidden single points of failure before real outages occur." },
+                { q: "What distinguishes Horizontal Pod Autoscaling (HPA) from Vertical Pod Autoscaling (VPA) in Kubernetes?", opts: ["HPA adds more pod replicas; VPA adjusts CPU/memory limits of existing pods", "HPA upgrades physical cables", "VPA deletes namespaces", "They are identical"], ans: 0, exp: "Horizontal scaling adds parallel instances behind a load balancer, whereas vertical scaling resizes individual container resources." }
+            ]
+        }
+    ];
+
+    // =========================================================================
+    // 5. APPLICATION STATE & STORAGE MANAGEMENT
+    // =========================================================================
+    const PROFILE_KEY = "next_gate_uec_student_v1";
+    const SCORES_KEY = "next_gate_uec_scores_v1";
+
+    let state = {
+        lang: "en",
+        student: null, // { name, id, year }
+        scores: {},    // { [courseId]: { best: number, attempts: number, last: number } }
+        activeTab: "roadmap",
+        selectedRoadmapYear: 1,
+        quiz: {
+            courseId: null,
+            index: 0,
+            score: 0,
+            answeredWrong: false,
+            locked: false
+        }
+    };
+
+    function loadPersistedData() {
+        try {
+            const savedProfile = localStorage.getItem(PROFILE_KEY);
+            if (savedProfile) state.student = JSON.parse(savedProfile);
+            const savedScores = localStorage.getItem(SCORES_KEY);
+            if (savedScores) state.scores = JSON.parse(savedScores);
+        } catch (e) {
+            console.warn("Storage unavailable:", e);
+        }
+    }
+
+    function saveProfile() {
+        try { localStorage.setItem(PROFILE_KEY, JSON.stringify(state.student)); } catch (e) {}
+    }
+
+    function saveScores() {
+        try { localStorage.setItem(SCORES_KEY, JSON.stringify(state.scores)); } catch (e) {}
+    }
+
+    // =========================================================================
+    // 6. STUDENT LOGIN & PROFILE PORTAL LOGIC
+    // =========================================================================
+    let selectedLoginYear = 1;
+
+    document.querySelectorAll(".year-choice").forEach(btn => {
+        btn.addEventListener("click", () => {
+            selectedLoginYear = parseInt(btn.getAttribute("data-year"), 10);
+            document.querySelectorAll(".year-choice").forEach(b => {
+                b.className = "year-choice py-2.5 px-3 rounded-xl border border-slate-700 bg-obsidian text-slate-400 hover:border-slate-500 font-bold text-xs text-center transition cursor-pointer";
+            });
+            btn.className = "year-choice active py-2.5 px-3 rounded-xl border border-neonCyan bg-neonCyan/15 text-neonCyan font-bold text-xs text-center transition cursor-pointer";
+        });
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("inputStudentName").value.trim();
+        const id = document.getElementById("inputStudentId").value.trim();
+        const errBox = document.getElementById("loginError");
+
+        if (!name || !id) {
+            errBox.classList.remove("hidden");
+            return;
+        }
+        errBox.classList.add("hidden");
+
+        state.student = { name, id, year: selectedLoginYear };
+        state.selectedRoadmapYear = selectedLoginYear;
+        saveProfile();
+        enterMainPortal();
+    });
+
+    function enterMainPortal() {
+        document.getElementById("loginOverlay").classList.add("hidden");
+        document.getElementById("appShell").classList.remove("hidden");
+        updateHudProfile();
+        renderAllViews();
+    }
+
+    function logoutStudent() {
+        state.student = null;
+        localStorage.removeItem(PROFILE_KEY);
+        document.getElementById("appShell").classList.add("hidden");
+        document.getElementById("loginOverlay").classList.remove("hidden");
+    }
+
+    function updateHudProfile() {
+        if (!state.student) return;
+        document.getElementById("hudStudentName").textContent = state.student.name;
+        document.getElementById("hudStudentId").textContent = state.student.id;
+        const yearText = state.lang === "ar" ? `السنة ${state.student.year}` : `Year ${state.student.year}`;
+        document.getElementById("hudStudentYear").textContent = yearText;
+
+        // Calculate Total XP (50 XP per best-score point)
+        let totalBestPoints = 0;
+        Object.values(state.scores).forEach(s => { totalBestPoints += (s.best || 0); });
+        document.getElementById("hudTotalXp").textContent = (totalBestPoints * 50).toLocaleString();
+    }
+
+    // =========================================================================
+    // 7. BILINGUAL UI TOGGLE (ENGLISH / ARABIC)
+    // =========================================================================
+    function toggleLanguage() {
+        state.lang = state.lang === "en" ? "ar" : "en";
+        const htmlEl = document.documentElement;
+        htmlEl.setAttribute("lang", state.lang);
+        htmlEl.setAttribute("dir", state.lang === "ar" ? "rtl" : "ltr");
+
+        applyTranslations();
+        updateHudProfile();
+        renderAllViews();
+    }
+
+    function applyTranslations() {
+        const dict = I18N[state.lang];
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
+            if (dict[key]) el.textContent = dict[key];
+        });
+
+        // Login & header specific IDs
+        document.getElementById("loginSubtitle").textContent = dict.loginSubtitle;
+        document.getElementById("lblStudentName").textContent = dict.lblStudentName;
+        document.getElementById("lblStudentId").textContent = dict.lblStudentId;
+        document.getElementById("lblAcademicYear").textContent = dict.lblAcademicYear;
+        document.getElementById("btnEnterPortal").textContent = dict.btnEnterPortal;
+        document.getElementById("headerTagline").textContent = dict.headerTagline;
+        document.getElementById("lblLogout").textContent = dict.lblLogout;
+    }
+
+    // =========================================================================
+    // 8. NAVIGATION & VIEW RENDERERS
+    // =========================================================================
+    function switchTab(tabName) {
+        state.activeTab = tabName;
+        document.querySelectorAll(".tab-section").forEach(sec => sec.classList.add("hidden"));
+        document.getElementById(`section-${tabName}`).classList.remove("hidden");
+
+        document.querySelectorAll(".nav-tab").forEach(btn => {
+            btn.className = "nav-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap text-slate-300 hover:bg-panelLight transition cursor-pointer";
+        });
+        const activeBtn = document.getElementById(`tab-${tabName}`);
+        activeBtn.className = "nav-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap bg-neonCyan text-obsidian shadow-md transition cursor-pointer";
+
+        renderAllViews();
+    }
+
+    function selectRoadmapYear(yr) {
+        state.selectedRoadmapYear = yr;
+        renderRoadmapView();
+    }
+
+    function renderAllViews() {
+        renderRoadmapView();
+        renderCoursesView();
+        renderCareersView();
+        renderAnalyticsView();
+    }
+
+    // --- VIEW 1: ACADEMIC YEAR ROADMAP ---
+    function renderRoadmapView() {
+        const yr = state.selectedRoadmapYear;
+        const data = YEAR_ROADMAPS[yr];
+        const dict = I18N[state.lang];
+        const isAr = state.lang === "ar";
+
+        // Update year tab pills
+        document.querySelectorAll(".ryear-btn").forEach(btn => {
+            const bYr = parseInt(btn.getAttribute("data-ryear"), 10);
+            btn.textContent = isAr ? `السنة ${bYr}` : `Year ${bYr}`;
+            if (bYr === yr) {
+                btn.className = "ryear-btn px-4 py-2 rounded-xl text-xs font-bold border border-neonCyan bg-neonCyan/20 text-neonCyan neon-glow-cyan cursor-pointer";
+            } else {
+                btn.className = "ryear-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-panel text-slate-300 hover:border-slate-500 cursor-pointer";
+            }
+        });
+
+        const isStudentCurrentYear = state.student && state.student.year === yr;
+        const milestones = isAr ? data.milestonesAr : data.milestonesEn;
+        const yearCourses = data.courseIds.map(cid => COURSES_DATA.find(c => c.id === cid)).filter(Boolean);
+
+        document.getElementById("roadmapContentContainer").innerHTML = `
+            <div class="cyber-card rounded-2xl p-6 border-neonCyan/30">
+                <div class="flex flex-wrap items-center gap-3 mb-3">
+                    <span class="px-3 py-1 rounded-lg bg-neonPurple/20 text-neonPurple border border-neonPurple/40 font-mono text-xs font-bold">
+                        UEC CS // ${isAr ? `المستوى الدراسي ${yr}` : `LEVEL 0${yr}`}
+                    </span>
+                    ${isStudentCurrentYear ? `
+                        <span class="px-3 py-1 rounded-lg bg-neonGreen/15 text-neonGreen border border-neonGreen/40 text-xs font-bold">
+                            ★ ${dict.yourYearBadge}
+                        </span>
+                    ` : ""}
+                </div>
+                <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mb-2">
+                    ${isAr ? data.titleAr : data.titleEn}
+                </h3>
+                <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                    ${isAr ? data.focusAr : data.focusEn}
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Milestones -->
+                    <div class="p-5 rounded-xl bg-obsidian/80 border border-slate-800">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-neonCyan mb-3">🎯 ${dict.milestoneTitle}</h4>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            ${milestones.map(m => `
+                                <li class="flex items-start gap-2.5">
+                                    <span class="text-neonGreen font-bold mt-0.5">✓</span>
+                                    <span>${m}</span>
+                                </li>
+                            `).join("")}
+                        </ul>
+                    </div>
+
+                    <!-- Linked Courses for this Year -->
+                    <div class="p-5 rounded-xl bg-obsidian/80 border border-slate-800 space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-neonMagenta mb-3">⚔️ ${dict.yearCoursesTitle}</h4>
+                        ${yearCourses.map(c => {
+                            const best = state.scores[c.id]?.best ?? null;
+                            return `
+                                <div class="p-4 rounded-xl bg-panel border border-slate-800 hover:border-neonCyan/50 flex flex-wrap items-center justify-between gap-3 transition">
+                                    <div>
+                                        <div class="font-mono text-[11px] text-neonCyan">${c.code} • 20 MCQs (EN)</div>
+                                        <div class="font-bold text-white text-sm">${isAr ? c.titleAr : c.titleEn}</div>
+                                        <div class="text-xs text-slate-400 mt-0.5">
+                                            ${dict.bestScoreLabel}: <span class="font-mono font-bold ${best !== null ? 'text-neonGreen' : 'text-slate-500'}">${best !== null ? `${best}/20` : 'Not Attempted'}</span>
+                                        </div>
+                                    </div>
+                                    <button onclick="startCourseQuiz('${c.id}')" class="px-4 py-2 rounded-xl bg-neonCyan text-obsidian font-display font-bold text-xs uppercase tracking-wider hover:opacity-90 cursor-pointer">
+                                        ${best !== null ? dict.retakeExamBtn : dict.startExamBtn}
+                                    </button>
+                                </div>
+                            `;
+                        }).join("")}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // --- VIEW 2: 8 CORE COURSES & 20-QUESTION EXAMS ---
+    function renderCoursesView() {
+        const dict = I18N[state.lang];
+        const isAr = state.lang === "ar";
+
+        document.getElementById("coursesGridContainer").innerHTML = COURSES_DATA.map(course => {
+            const record = state.scores[course.id];
+            const best = record ? record.best : null;
+            const pct = best !== null ? Math.round((best / 20) * 100) : 0;
+
+            return `
+                <article class="cyber-card rounded-2xl p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-obsidian border border-slate-700 text-neonCyan">
+                                ${course.code}
+                            </span>
+                            <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-neonPurple/15 text-neonPurple border border-neonPurple/30">
+                                ${isAr ? `سنة ${course.year}` : `Year ${course.year}`}
+                            </span>
+                        </div>
+                        <h3 class="font-display font-bold text-base text-white mb-1.5 leading-snug">
+                            ${isAr ? course.titleAr : course.titleEn}
+                        </h3>
+                        <p class="text-xs text-slate-400 mb-4">
+                            ${isAr ? `المسار المرتبط: ${course.careerMatchAr}` : `Track: ${course.careerMatchEn}`}
+                        </p>
+                    </div>
+
+                    <div class="space-y-3 pt-3 border-t border-slate-800/80">
+                        <div class="flex items-center justify-between text-xs">
+                            <span class="text-slate-400">${dict.bestScoreLabel}</span>
+                            <span class="font-mono font-bold ${best !== null ? 'text-neonGreen' : 'text-slate-500'}">
+                                ${best !== null ? `${best}/20 (${pct}%)` : '0/20'}
+                            </span>
+                        </div>
+                        <div class="w-full h-1.5 bg-obsidian rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-neonCyan to-neonGreen transition-all duration-300" style="width: ${pct}%"></div>
+                        </div>
+                        <button onclick="startCourseQuiz('${course.id}')"
+                            class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-neonCyan/20 to-neonPurple/20 hover:from-neonCyan hover:to-neonPurple border border-neonCyan/50 text-white hover:text-obsidian font-display font-bold text-xs uppercase tracking-wider transition cursor-pointer">
+                            ${best !== null ? dict.retakeExamBtn : dict.startExamBtn}
+                        </button>
+                    </div>
+                </article>
+            `;
+        }).join("");
+    }
+
+    // --- VIEW 3: CAREER TRACKS & INTERVIEW ARENA ---
+    function renderCareersView() {
+        const dict = I18N[state.lang];
+        const isAr = state.lang === "ar";
+
+        document.getElementById("careersGridContainer").innerHTML = CAREER_TRACKS.map(track => {
+            const linkedCourse = COURSES_DATA.find(c => c.id === track.courseId);
+            const best = state.scores[track.courseId]?.best ?? null;
+
+            return `
+                <article class="cyber-card rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="text-xs font-mono font-bold text-neonCyan uppercase tracking-wider">UEC CAREER TRACK</span>
+                            ${best !== null ? `<span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-neonGreen/15 text-neonGreen border border-neonGreen/40">${dict.bestScoreLabel}: ${best}/20</span>` : ""}
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white mb-2">
+                            ${isAr ? track.titleAr : track.titleEn}
+                        </h3>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-4">
+                            ${isAr ? track.descAr : track.descEn}
+                        </p>
+
+                        <div class="mb-4">
+                            <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">${dict.techStackLabel}</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                ${track.stack.map(s => `<span class="px-2.5 py-1 rounded-lg bg-obsidian border border-slate-700 font-mono text-xs text-neonCyan">${s}</span>`).join("")}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-800 space-y-3">
+                        <div class="text-xs text-slate-400 flex items-center justify-between">
+                            <span>${dict.linkedCourseLabel}:</span>
+                            <span class="font-bold text-white">${isAr ? linkedCourse.titleAr : linkedCourse.titleEn}</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            <button onclick="openInterviewModal('${track.id}')"
+                                class="py-2.5 px-3 rounded-xl bg-neonPurple/20 hover:bg-neonPurple border border-neonPurple/50 text-white font-bold text-xs transition cursor-pointer">
+                                💼 ${dict.openInterviewBtn}
+                            </button>
+                            <button onclick="startCourseQuiz('${track.courseId}')"
+                                class="py-2.5 px-3 rounded-xl bg-neonCyan text-obsidian font-display font-bold text-xs uppercase tracking-wider hover:opacity-90 transition cursor-pointer">
+                                ⚔️ ${dict.startExamBtn}
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }).join("");
+    }
+
+    // --- VIEW 4: BEST COURSE SCOREBOARD & SKILL MATRIX ---
+    function renderAnalyticsView() {
+        const dict = I18N[state.lang];
+        const isAr = state.lang === "ar";
+
+        // Rank all 8 courses by best score descending
+        const ranked = COURSES_DATA.map(c => {
+            const rec = state.scores[c.id] || { best: 0, attempts: 0 };
+            return { ...c, best: rec.best, attempts: rec.attempts, pct: Math.round((rec.best / 20) * 100) };
+        }).sort((a, b) => b.best - a.best);
+
+        const topCourse = ranked[0];
+        const hasAnyScore = topCourse && topCourse.attempts > 0;
+
+        const heroBanner = document.getElementById("bestCourseHeroBanner");
+        if (!hasAnyScore) {
+            heroBanner.innerHTML = `
+                <div class="text-center py-6 space-y-3">
+                    <div class="text-4xl">🎮</div>
+                    <h3 class="font-display text-xl font-bold text-white">${dict.noScoresYet}</h3>
+                    <button onclick="switchTab('courses')" class="px-6 py-2.5 rounded-xl bg-neonCyan text-obsidian font-display font-bold text-xs uppercase tracking-wider cursor-pointer">
+                        ${dict.startExamBtn} →
+                    </button>
+                </div>
+            `;
+        } else {
+            heroBanner.innerHTML = `
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="space-y-2">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neonGold/15 border border-neonGold/40 text-neonGold font-mono text-xs font-bold">
+                            👑 ${dict.bestCourseCrown}
+                        </span>
+                        <h3 class="font-display text-2xl sm:text-3xl font-black text-white">
+                            ${isAr ? topCourse.titleAr : topCourse.titleEn}
+                        </h3>
+                        <p class="text-sm text-slate-300">
+                            ${isAr
+                                ? `أنت متفوق في هذا المجال! المسار الوظيفي الأنسب لمهاراتك هو: <strong class="text-neonCyan">${topCourse.careerMatchAr}</strong>`
+                                : `You excel highest in this domain! Your #1 recommended career specialization is: <strong class="text-neonCyan">${topCourse.careerMatchEn}</strong>`
+                            }
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 shrink-0">
+                        <div class="p-4 rounded-2xl bg-obsidian border border-neonGold/40 text-center min-w-[110px]">
+                            <div class="text-xs text-slate-400">${dict.bestScoreLabel}</div>
+                            <div class="font-display text-3xl font-black text-neonGold mt-1">${topCourse.best}/20</div>
+                            <div class="font-mono text-xs text-neonGreen mt-0.5">${topCourse.pct}%</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.getElementById("leaderboardList").innerHTML = ranked.map((item, idx) => {
+            const rankBadge = item.pct >= 90 ? "GRANDMASTER" : item.pct >= 75 ? "ELITE" : item.pct >= 50 ? "SPECIALIST" : item.attempts > 0 ? "NOVICE" : "UNRANKED";
+            const rankColor = item.pct >= 90 ? "text-neonGold" : item.pct >= 75 ? "text-neonGreen" : item.pct >= 50 ? "text-neonCyan" : "text-slate-500";
+
+            return `
+                <div class="p-4 rounded-xl bg-obsidian/90 border ${idx === 0 && item.attempts > 0 ? 'border-neonGold/50' : 'border-slate-800'} flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="flex items-center gap-3.5 min-w-0">
+                        <div class="w-8 h-8 rounded-lg bg-panel border border-slate-700 flex items-center justify-center font-display font-bold text-xs ${idx === 0 && item.attempts > 0 ? 'text-neonGold' : 'text-slate-400'} shrink-0">
+                            #${idx + 1}
+                        </div>
+                        <div class="min-w-0">
+                            <div class="font-bold text-white text-sm truncate">${isAr ? item.titleAr : item.titleEn}</div>
+                            <div class="text-xs text-slate-400 font-mono">${item.code} • ${isAr ? `المحاولات: ${item.attempts}` : `Attempts: ${item.attempts}`}</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 sm:w-1/2">
+                        <div class="flex-1 h-2.5 bg-panel rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-neonPurple via-neonCyan to-neonGreen transition-all duration-500" style="width: ${item.pct}%"></div>
+                        </div>
+                        <div class="text-right shrink-0 w-28">
+                            <div class="font-mono font-bold text-sm text-white">${item.best}/20 (${item.pct}%)</div>
+                            <div class="font-display text-[10px] font-bold ${rankColor}">${rankBadge}</div>
+                        </div>
+                        <button onclick="startCourseQuiz('${item.id}')" class="px-3 py-1.5 rounded-lg bg-panelLight hover:bg-neonCyan hover:text-obsidian border border-slate-700 text-xs font-bold text-white transition cursor-pointer shrink-0">
+                            ▶
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join("");
+    }
+
+    function resetAllScores() {
+        state.scores = {};
+        saveScores();
+        updateHudProfile();
+        renderAllViews();
+    }
+
+    // =========================================================================
+    // 9. INTERVIEW PREP ARENA MODAL
+    // =========================================================================
+    function openInterviewModal(trackId) {
+        const track = CAREER_TRACKS.find(t => t.id === trackId);
+        if (!track) return;
+        const dict = I18N[state.lang];
+        const isAr = state.lang === "ar";
+        const questions = isAr ? track.techQuestionsAr : track.techQuestionsEn;
+
+        document.getElementById("interviewModalTitle").textContent = isAr ? track.titleAr : track.titleEn;
+        document.getElementById("interviewModalBody").innerHTML = `
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-neonCyan">🧠 ${dict.interviewTechQ}</h4>
+                ${questions.map((item, i) => `
+                    <div class="p-4 rounded-xl bg-obsidian border border-slate-800 space-y-2">
+                        <div class="font-bold text-sm text-white">Q${i + 1}: ${item.q}</div>
+                        <div class="text-xs sm:text-sm text-neonGreen/90 bg-neonGreen/5 border border-neonGreen/20 rounded-lg p-3 leading-relaxed">
+                            <strong>✓ Winning Answer:</strong> ${item.a}
+                        </div>
+                    </div>
+                `).join("")}
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl bg-neonPurple/10 border border-neonPurple/30 space-y-1.5">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-neonPurple">⭐ ${dict.interviewBehavioral}</h4>
+                    <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">${isAr ? track.starTipAr : track.starTipEn}</p>
+                </div>
+                <div class="p-4 rounded-xl bg-neonRed/10 border border-neonRed/30 space-y-1.5">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-neonRed">🚩 ${dict.redFlagsTitle}</h4>
+                    <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">${isAr ? track.redFlagsAr : track.redFlagsEn}</p>
+                </div>
+            </div>
+        `;
+        document.getElementById("interviewModal").classList.remove("hidden");
+    }
+
+    function closeInterviewModal() {
+        document.getElementById("interviewModal").classList.add("hidden");
+    }
+
+    // =========================================================================
+    // 10. 20-QUESTION TECHNICAL QUIZ ENGINE (STRICTLY ENGLISH, AUTO-ADVANCE ON RIGHT)
+    // =========================================================================
+    let autoAdvanceTimer = null;
+
+    function startCourseQuiz(courseId) {
+        const course = COURSES_DATA.find(c => c.id === courseId);
+        if (!course) return;
+
+        clearTimeout(autoAdvanceTimer);
+        state.quiz = {
+            courseId: courseId,
+            index: 0,
+            score: 0,
+            locked: false
+        };
+
+        document.getElementById("quizCourseTitle").textContent = `${course.code}: ${course.titleEn}`;
+        document.getElementById("quizSummaryScreen").classList.add("hidden");
+        document.getElementById("quizBody").classList.remove("hidden");
+        document.getElementById("quizModal").classList.remove("hidden");
+
+        renderCurrentQuizQuestion();
+    }
+
+    function renderCurrentQuizQuestion() {
+        const course = COURSES_DATA.find(c => c.id === state.quiz.courseId);
+        const qIndex = state.quiz.index;
+        const total = course.questions.length; // Always 20
+        const item = course.questions[qIndex];
+
+        state.quiz.locked = false;
+
+        document.getElementById("quizProgressLabel").textContent = `Question ${qIndex + 1} / ${total}`;
+        document.getElementById("quizLiveScore").textContent = state.quiz.score;
+        document.getElementById("quizProgressBar").style.width = `${((qIndex + 1) / total) * 100}%`;
+        document.getElementById("quizQuestionText").textContent = `${qIndex + 1}. ${item.q}`;
+        document.getElementById("quizExplanationBox").classList.add("hidden");
+
+        const letters = ["A", "B", "C", "D"];
+        document.getElementById("quizOptionsContainer").innerHTML = item.opts.map((optText, idx) => `
+            <button type="button" id="qopt-${idx}" onclick="handleOptionSelect(${idx})"
+                class="w-full text-left p-4 rounded-xl bg-obsidian border border-slate-700 hover:border-neonCyan text-sm sm:text-base text-slate-200 flex items-start gap-3 transition cursor-pointer">
+                <span class="w-7 h-7 rounded-lg bg-panel border border-slate-600 flex items-center justify-center font-mono font-bold text-xs text-neonCyan shrink-0">
+                    ${letters[idx]}
+                </span>
+                <span class="pt-0.5 leading-snug">${optText}</span>
+            </button>
+        `).join("");
+    }
+
+    function handleOptionSelect(selectedIdx) {
+        if (state.quiz.locked) return;
+        state.quiz.locked = true;
+
+        const course = COURSES_DATA.find(c => c.id === state.quiz.courseId);
+        const item = course.questions[state.quiz.index];
+        const correctIdx = item.ans;
+
+        const chosenBtn = document.getElementById(`qopt-${selectedIdx}`);
+        const correctBtn = document.getElementById(`qopt-${correctIdx}`);
+
+        if (selectedIdx === correctIdx) {
+            // CORRECT ANSWER: Neon Green highlight + immediate auto-advance to next question!
+            state.quiz.score += 1;
+            document.getElementById("quizLiveScore").textContent = state.quiz.score;
+
+            chosenBtn.className = "w-full text-left p-4 rounded-xl bg-neonGreen/20 border-2 border-neonGreen text-sm sm:text-base text-white flex items-start gap-3 transition";
+            chosenBtn.querySelector("span").className = "w-7 h-7 rounded-lg bg-neonGreen text-obsidian flex items-center justify-center font-mono font-bold text-xs shrink-0";
+
+            autoAdvanceTimer = setTimeout(() => {
+                advanceToNextQuestion();
+            }, 420);
+        } else {
+            // WRONG ANSWER: Highlight wrong in Neon Red, highlight right in Neon Green, show simplified explanation & wait for Next button
+            chosenBtn.className = "w-full text-left p-4 rounded-xl bg-neonRed/20 border-2 border-neonRed text-sm sm:text-base text-white flex items-start gap-3 transition";
+            chosenBtn.querySelector("span").className = "w-7 h-7 rounded-lg bg-neonRed text-white flex items-center justify-center font-mono font-bold text-xs shrink-0";
+
+            correctBtn.className = "w-full text-left p-4 rounded-xl bg-neonGreen/20 border-2 border-neonGreen text-sm sm:text-base text-white flex items-start gap-3 transition";
+            correctBtn.querySelector("span").className = "w-7 h-7 rounded-lg bg-neonGreen text-obsidian flex items-center justify-center font-mono font-bold text-xs shrink-0";
+
+            document.getElementById("quizExplanationText").textContent = item.exp;
+            document.getElementById("quizExplanationBox").classList.remove("hidden");
+        }
+    }
+
+    function advanceToNextQuestion() {
+        clearTimeout(autoAdvanceTimer);
+        const course = COURSES_DATA.find(c => c.id === state.quiz.courseId);
+        if (state.quiz.index + 1 < course.questions.length) {
+            state.quiz.index += 1;
+            renderCurrentQuizQuestion();
+        } else {
+            finishCourseQuiz();
+        }
+    }
+
+    function finishCourseQuiz() {
+        const course = COURSES_DATA.find(c => c.id === state.quiz.courseId);
+        const finalScore = state.quiz.score;
+        const pct = Math.round((finalScore / 20) * 100);
+
+        const prev = state.scores[course.id] || { best: 0, attempts: 0 };
+        state.scores[course.id] = {
+            best: Math.max(prev.best, finalScore),
+            attempts: prev.attempts + 1,
+            last: finalScore
+        };
+        saveScores();
+        updateHudProfile();
+        renderAllViews();
+
+        const rank = pct >= 90 ? "GRANDMASTER" : pct >= 75 ? "ELITE" : pct >= 50 ? "SPECIALIST" : "NOVICE";
+        const feedback = pct >= 80
+            ? `Outstanding mastery! You are highly qualified for roles in ${course.careerMatchEn}.`
+            : pct >= 50
+            ? `Solid foundation! Review the missed technical explanations and retake the exam to reach Elite rank.`
+            : `Keep practicing! Study the core concepts for ${course.titleEn} and challenge the 20 questions again.`;
+
+        document.getElementById("quizBody").classList.add("hidden");
+        document.getElementById("quizSummaryScreen").classList.remove("hidden");
+        document.getElementById("summaryCourseName").textContent = `${course.code}: ${course.titleEn}`;
+        document.getElementById("summaryScoreVal").textContent = `${finalScore}/20`;
+        document.getElementById("summaryPctVal").textContent = `${pct}%`;
+        document.getElementById("summaryRankVal").textContent = rank;
+        document.getElementById("summaryFeedback").textContent = feedback;
+    }
+
+    function retakeCurrentQuiz() {
+        if (state.quiz.courseId) startCourseQuiz(state.quiz.courseId);
+    }
+
+    function closeQuizModal() {
+        clearTimeout(autoAdvanceTimer);
+        document.getElementById("quizModal").classList.add("hidden");
+    }
+
+    function closeQuizAndViewScoreboard() {
+        closeQuizModal();
+        switchTab("analytics");
+    }
+
+    // =========================================================================
+    // 11. BOOTSTRAP APPLICATION ON LOAD
+    // =========================================================================
+    document.addEventListener("DOMContentLoaded", () => {
+        loadPersistedData();
+        applyTranslations();
+        if (state.student && state.student.name && state.student.id) {
+            state.selectedRoadmapYear = state.student.year || 1;
+            enterMainPortal();
+        }
+    });
+    </script>
+</body>
+</html>
